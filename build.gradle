@@ -1,14 +1,16 @@
-group 'bo.edu.ucbcba.group4'
+group 'bo.edu.ucbcba.prestamix.group4'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
+apply plugin: 'application'
 
-sourceCompatibility = 1.7
+mainClassName = 'bo.edu.ucbcba.prestmix.group4.Main'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.apache.derby:derby:10.1.1.0'
+    compile 'org.eclipse.persistence:eclipselink:2.6.3'
+    compile 'com.intellij:forms_rt:7.0.3'
 }
