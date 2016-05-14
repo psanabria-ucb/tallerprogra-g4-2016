@@ -1,9 +1,13 @@
 package bo.edu.ucbcba.prestamix.group4.dao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class PrestamixEntityManager
 {
     private static PrestamixEntityManager entityManager;
-   /* private EntityManagerFactory entityManagerFactory;
+   private EntityManagerFactory entityManagerFactory;
 
     private PrestamixEntityManager() {
         entityManagerFactory = Persistence.createEntityManagerFactory("Prestamix");
@@ -18,5 +22,4 @@ public class PrestamixEntityManager
     public static EntityManager createEntityManager() {
         return getInstance().entityManagerFactory.createEntityManager();
     }
-*/
 }
