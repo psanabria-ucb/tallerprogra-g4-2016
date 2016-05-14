@@ -74,9 +74,13 @@ public class MainWin extends JFrame
 
     public void addCustomer()
     {
-        controllerCustomer.create(ciField.getText(), firstNameField.getText(),
-                lastNameFField.getText(), lastNameMField.getText(),
-                addressArea.getText(), numberPhoneField.getText());
+        try {
+            controllerCustomer.create(ciField.getText(), firstNameField.getText(),
+                    lastNameFField.getText(), lastNameMField.getText(),
+                    addressArea.getText(), numberPhoneField.getText());
+        }catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void populateTableCustomers()

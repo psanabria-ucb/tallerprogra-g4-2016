@@ -17,7 +17,7 @@ public class CustomerController
         if (ci.matches("[0-9]+"))
             customer.setCi(Integer.parseInt(ci));
         else
-            throw new ValidationException("CI no es un numero");
+            throw new ValidationException("CI no es un numero o Formulario vacio");
         customer.setFirtsName(firstName);
         customer.setLastNameF(lastNameF);
         customer.setLastNameM(lastNameM);
