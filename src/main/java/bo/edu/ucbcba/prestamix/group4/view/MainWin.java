@@ -1,6 +1,7 @@
 package bo.edu.ucbcba.prestamix.group4.view;
 
 import bo.edu.ucbcba.prestamix.group4.controller.CustomerController;
+import bo.edu.ucbcba.prestamix.group4.controller.PawnController;
 import bo.edu.ucbcba.prestamix.group4.controller.PledgeController;
 import bo.edu.ucbcba.prestamix.group4.controller.StoreController;
 import bo.edu.ucbcba.prestamix.group4.exceptions.ValidationException;
@@ -19,6 +20,7 @@ public class MainWin extends JFrame
     private JTabbedPane tabbedMain;
     private JPanel rootPanel;
 
+    //CUSTOMERS
     private JTextField ciField;
     private JTable tableCustomers;
     private JTextField firstNameField;
@@ -50,10 +52,22 @@ public class MainWin extends JFrame
     private JButton listStoreButton;
     private JTable tableStores;
 
+    //PAWNS
+    private JPanel pawnsPanel;
+    private JComboBox comboCustomers;
+    private JComboBox comboPledges;
+    private JTextField amountField;
+    private JTextField DateField;
+    private JComboBox comboStatus;
+    private JButton addPawnButton;
+    private JButton listPawnsButton;
+    private JTable tablePawns;
+
     //CONTROLLERS
     private CustomerController controllerCustomer;
     private PledgeController controllerPledge;
     private StoreController controllerStore;
+    private PawnController controllerPawn;
 
     public MainWin()
     {
@@ -63,6 +77,7 @@ public class MainWin extends JFrame
         controllerCustomer = new CustomerController();
         controllerPledge = new PledgeController();
         controllerStore= new StoreController();
+        controllerPawn = new PawnController();
 
         addCustomerButton.addActionListener(new ActionListener(){
             @Override
