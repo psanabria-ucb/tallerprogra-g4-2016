@@ -3,30 +3,28 @@ package bo.edu.ucbcba.prestamix.group4.model;
 import javax.persistence.*;
 
 @Entity
-public class Pledge
+public class Store
 {
     @Id
-    private String cod;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @Column(length = 100)
     private String name;
-
-    @Column(length = 100)
-    private String type;
 
     @Lob
     @Column(length = 500)
     private String description;
 
     @Column(length = 100)
-    private String location;
+    private String status;
 
-    public String getCod() {
-        return cod;
+    public int getId() {
+        return id;
     }
 
-    public void setCod(String cod) {
-        this.cod = cod;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,14 +35,6 @@ public class Pledge
         this.name = name;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -53,11 +43,11 @@ public class Pledge
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getStatus() {
+        return status;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

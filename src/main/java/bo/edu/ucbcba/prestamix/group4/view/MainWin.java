@@ -2,9 +2,11 @@ package bo.edu.ucbcba.prestamix.group4.view;
 
 import bo.edu.ucbcba.prestamix.group4.controller.CustomerController;
 import bo.edu.ucbcba.prestamix.group4.controller.PledgeController;
+import bo.edu.ucbcba.prestamix.group4.controller.StoreController;
 import bo.edu.ucbcba.prestamix.group4.exceptions.ValidationException;
 import bo.edu.ucbcba.prestamix.group4.model.Customer;
 import bo.edu.ucbcba.prestamix.group4.model.Pledge;
+import bo.edu.ucbcba.prestamix.group4.model.Store;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -39,9 +41,19 @@ public class MainWin extends JFrame
     private JButton listPlegdesButton;
     private JTable tablePlegdes;
 
+    //STORES
+    private JPanel storesPanel;
+    private JTextField nameStoreField;
+    private JTextArea descriptionStoreArea;
+    private JTextField statusStoreField;
+    private JButton addStoreButton;
+    private JButton listStoreButton;
+    private JTable tableStores;
+
     //CONTROLLERS
     private CustomerController controllerCustomer;
     private PledgeController controllerPledge;
+    private StoreController controllerStore;
 
     public MainWin()
     {
@@ -50,6 +62,7 @@ public class MainWin extends JFrame
         setSize(600,600);
         controllerCustomer = new CustomerController();
         controllerPledge = new PledgeController();
+        controllerStore= new StoreController();
 
         addCustomerButton.addActionListener(new ActionListener(){
             @Override
@@ -69,6 +82,16 @@ public class MainWin extends JFrame
         listPlegdesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { populateTablePledges();}
+        });
+
+        addStoreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { addStore();}
+        });
+
+        listStoreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { populateTableStores();}
         });
     }
 
@@ -142,5 +165,38 @@ public class MainWin extends JFrame
             row[4] = p.getLocation();
             model.addRow(row);
         }
+    }
+
+    public void addStore()
+    {
+        try {
+            controllerStore.create(nameStoreField.getText(),descriptionStoreArea.getText(),
+                    statusStoreField.getText());
+        }catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void populateTableStores()
+    {
+        List<Store> stores = controllerStore.show();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("NOMBRE DE DEPOSITO");
+        model.addColumn("DESCRIPCION");
+        model.addColumn("ESTADO");
+        tableStores.setModel(model);
+
+        for (Store s : stores)
+        {
+            Object[] row = new Object[4];
+
+            row[0] = s.getId();
+            row[1] = s.getName();
+            row[2] = s.getDescription();
+            row[3] = s.getStatus();
+            model.addRow(row);
+        }
+
     }
 }
