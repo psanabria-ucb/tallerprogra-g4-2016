@@ -6,6 +6,7 @@ import bo.edu.ucbcba.prestamix.group4.controller.PledgeController;
 import bo.edu.ucbcba.prestamix.group4.controller.StoreController;
 import bo.edu.ucbcba.prestamix.group4.exceptions.ValidationException;
 import bo.edu.ucbcba.prestamix.group4.model.Customer;
+import bo.edu.ucbcba.prestamix.group4.model.Pawn;
 import bo.edu.ucbcba.prestamix.group4.model.Pledge;
 import bo.edu.ucbcba.prestamix.group4.model.Store;
 
@@ -62,6 +63,7 @@ public class MainWin extends JFrame
     private JButton addPawnButton;
     private JButton listPawnsButton;
     private JTable tablePawns;
+    private JComboBox comboType;
 
     //CONTROLLERS
     private CustomerController controllerCustomer;
@@ -79,6 +81,11 @@ public class MainWin extends JFrame
         controllerStore= new StoreController();
         controllerPawn = new PawnController();
 
+        loadComboCustomers();
+        loadComboPledges();
+        loadComboStatus();
+        loadComboType();
+
         addCustomerButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {addCustomer();}
@@ -86,7 +93,7 @@ public class MainWin extends JFrame
 
         listCustomersButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) { populateTableCustomers();}
+            public void actionPerformed(ActionEvent e) { populateTableCustomers(); loadComboCustomers();}
         });
 
         addPledgeButton.addActionListener(new ActionListener() {
@@ -108,6 +115,17 @@ public class MainWin extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) { populateTableStores();}
         });
+
+        addPawnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { addPawn();}
+        });
+
+        listPawnsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { populateTablePawns();}
+        });
+
     }
 
     public void addCustomer()
@@ -213,5 +231,77 @@ public class MainWin extends JFrame
             model.addRow(row);
         }
 
+    }
+
+    public void loadComboCustomers()
+    {
+        List<Customer> customers = controllerCustomer.show();
+        for(Customer c: customers)
+        {
+            comboCustomers.addItem(c.getCi());
+        }
+    }
+
+    public void loadComboPledges()
+    {
+        List<Pledge> pledges = controllerPledge.show();
+        for(Pledge p: pledges)
+        {
+            comboPledges.addItem(p.getCod());
+        }
+    }
+
+    public void loadComboStatus()
+    {
+        comboStatus.addItem("Vigente");
+        comboStatus.addItem("Muerto");
+        comboStatus.addItem("Vendido");
+    }
+    public void  loadComboType()
+    {
+        comboType.addItem("Bs.");
+        comboType.addItem("$us.");
+    }
+
+    public void addPawn()
+    {
+        try {
+
+            controllerPawn.create(comboCustomers.getSelectedIndex(),
+                    String.valueOf(comboPledges.getSelectedIndex()),
+                    amountField.getText(),String.valueOf(comboType.getSelectedIndex()),
+                            DateField.getText(), String.valueOf(comboStatus.getSelectedIndex()));
+
+        }catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void populateTablePawns()
+    {
+        List<Pawn> pawns = controllerPawn.show();
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("CI CLIENTE");
+        model.addColumn("COD PRENDA");
+        model.addColumn("MONTO");
+        model.addColumn("TIPO");
+        model.addColumn("FECHA");
+        model.addColumn("ESTADO");
+        tablePawns.setModel(model);
+
+        for (Pawn p : pawns)
+        {
+            Object[] row = new Object[7];
+
+            row[0] = p.getId();
+            row[1] = p.getCiCustomer();
+            row[2] = p.getCodPledge();
+            row[3] = p.getAmount();
+            row[4] = p.getType();
+            row[5] = p.getDate();
+            row[6] = p.getStatus();
+            model.addRow(row);
+        }
     }
 }

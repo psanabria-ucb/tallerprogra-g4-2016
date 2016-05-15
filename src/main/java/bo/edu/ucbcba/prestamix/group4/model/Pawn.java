@@ -20,7 +20,7 @@ public class Pawn
     @Column(length = 10)
     private String type;
 
-    private Date date = new Date();
+    private Date date;
 
     @Column(length = 10)
     private String status;

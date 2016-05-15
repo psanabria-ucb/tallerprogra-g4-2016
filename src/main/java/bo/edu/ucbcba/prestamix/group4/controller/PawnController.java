@@ -11,20 +11,19 @@ import java.util.List;
 
 public class PawnController
 {
-    public void create(String ciCustomer, String codPledge, String amount, String type,
-                       Date date, String status)
+    public void create(int ciCustomer, String codPledge, String amount, String type,
+                       String date, String status)
     {
         Pawn pawn = new Pawn();
-        pawn.setCiCustomer(Integer.parseInt(ciCustomer));
+        pawn.setCiCustomer(ciCustomer);
         pawn.setCodPledge(codPledge);
         if (amount.matches("[0-9]+"))
             pawn.setAmount(Integer.parseInt(amount));
         else
             throw new ValidationException("Monto no es un numero");
         pawn.setType(type);
-        pawn.setDate(date);
+        pawn.setDate(new Date(date));
         pawn.setStatus(status);
-        //Date date1 = new Date(12/03/04);
     }
 
     public List<Pawn> show()
