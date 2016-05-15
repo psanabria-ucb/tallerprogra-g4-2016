@@ -42,4 +42,13 @@ public class CustomerController
         entityManager.close();
         return response;
     }
+
+    public void delete(int ci)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Customer.class,ci));
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }

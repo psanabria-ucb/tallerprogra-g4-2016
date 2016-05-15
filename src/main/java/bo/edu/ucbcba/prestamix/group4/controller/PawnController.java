@@ -11,11 +11,11 @@ import java.util.List;
 
 public class PawnController
 {
-    public void create(int ciCustomer, String codPledge, String amount, String type,
+    public void create(String ciCustomer, String codPledge, String amount, String type,
                        String date, String status)
     {
         Pawn pawn = new Pawn();
-        pawn.setCiCustomer(ciCustomer);
+        pawn.setCiCustomer(Integer.parseInt(ciCustomer));
         pawn.setCodPledge(codPledge);
         if (amount.matches("[0-9]+"))
             pawn.setAmount(Integer.parseInt(amount));
@@ -24,6 +24,12 @@ public class PawnController
         pawn.setType(type);
         pawn.setDate(new Date(date));
         pawn.setStatus(status);
+
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(pawn);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     public List<Pawn> show()
@@ -34,4 +40,5 @@ public class PawnController
         entityManager.close();
         return response;
     }
+
 }

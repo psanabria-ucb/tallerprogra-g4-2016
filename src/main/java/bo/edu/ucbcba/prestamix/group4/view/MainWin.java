@@ -32,6 +32,7 @@ public class MainWin extends JFrame
     private JButton addCustomerButton;
     private JButton listCustomersButton;
     private JPanel customersPanel;
+    private JButton deleteCustomerButton;
 
     //PLEDGES
     private JPanel pledgesPanel;
@@ -43,6 +44,7 @@ public class MainWin extends JFrame
     private JButton addPledgeButton;
     private JButton listPlegdesButton;
     private JTable tablePlegdes;
+    private JButton deletePledgeButton;
 
     //STORES
     private JPanel storesPanel;
@@ -76,6 +78,7 @@ public class MainWin extends JFrame
         super("-PRESTAMIX-");
         setContentPane(rootPanel);
         setSize(600,600);
+        //pack();
         controllerCustomer = new CustomerController();
         controllerPledge = new PledgeController();
         controllerStore= new StoreController();
@@ -91,6 +94,11 @@ public class MainWin extends JFrame
             public void actionPerformed(ActionEvent e) {addCustomer();}
         });
 
+        deleteCustomerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { deleteCustomer();}
+        });
+
         listCustomersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { populateTableCustomers(); loadComboCustomers();}
@@ -104,6 +112,11 @@ public class MainWin extends JFrame
         listPlegdesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { populateTablePledges();}
+        });
+
+        deletePledgeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { deletePledge();}
         });
 
         addStoreButton.addActionListener(new ActionListener() {
@@ -165,6 +178,13 @@ public class MainWin extends JFrame
         }
     }
 
+    public void deleteCustomer()
+    {
+        DefaultTableModel tm = (DefaultTableModel) tableCustomers.getModel();
+        int ci = (Integer) tm.getValueAt(tableCustomers.getSelectedRow(),0);
+        controllerCustomer.delete(ci);
+    }
+
     public void addPledge()
     {
         try {
@@ -198,6 +218,13 @@ public class MainWin extends JFrame
             row[4] = p.getLocation();
             model.addRow(row);
         }
+    }
+
+    public void deletePledge()
+    {
+        DefaultTableModel tm = (DefaultTableModel) tablePlegdes.getModel();
+        String cod = (String) tm.getValueAt(tablePlegdes.getSelectedRow(),0);
+        controllerPledge.delete(cod);
     }
 
     public void addStore()
@@ -266,11 +293,15 @@ public class MainWin extends JFrame
     public void addPawn()
     {
         try {
+            /*controllerPawn.create((String) comboCustomers.getSelectedItem(),
+                    (String) comboPledges.getSelectedItem(),
+                    amountField.getText(),(String) comboType.getSelectedItem(),
+                            DateField.getText(), (String) comboStatus.getSelectedItem());*/ //--> Hay que corregir algo aqui
 
-            controllerPawn.create(comboCustomers.getSelectedIndex(),
+            controllerPawn.create(String.valueOf(comboCustomers.getSelectedIndex()),
                     String.valueOf(comboPledges.getSelectedIndex()),
                     amountField.getText(),String.valueOf(comboType.getSelectedIndex()),
-                            DateField.getText(), String.valueOf(comboStatus.getSelectedIndex()));
+                    DateField.getText(), String.valueOf(comboStatus.getSelectedItem()));
 
         }catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
