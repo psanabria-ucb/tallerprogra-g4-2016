@@ -111,8 +111,13 @@ public class MainWin extends JFrame
 
     public void addPledge()
     {
-        controllerPledge.create(codField.getText(), nameField.getText(),
-                typeField.getText(), descriptionArea.getText(), locationField.getText());
+        try {
+            controllerPledge.create(codField.getText(), nameField.getText(),
+                    typeField.getText(), descriptionArea.getText(), locationField.getText());
+        }catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     public void populateTablePledges()
