@@ -61,6 +61,7 @@ public class MainWin extends JFrame
     private JButton addStoreButton;
     private JButton listStoreButton;
     private JTable tableStores;
+    private JButton deleteStoreButton;
 
     //PAWNS
     private JPanel pawnsPanel;
@@ -73,7 +74,6 @@ public class MainWin extends JFrame
     private JButton listPawnsButton;
     private JTable tablePawns;
     private JComboBox comboType;
-
 
 
     //CONTROLLERS
@@ -98,9 +98,6 @@ public class MainWin extends JFrame
         loadComboStatus();
         loadComboType();
 
-
-
-
         addCustomerButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {addCustomer();}
@@ -121,13 +118,6 @@ public class MainWin extends JFrame
             public void actionPerformed(ActionEvent e) { populateSearchingTableCustomers();
             }
         });
-
-
-
-
-
-
-
 
         addPledgeButton.addActionListener(new ActionListener() {
             @Override
@@ -154,6 +144,10 @@ public class MainWin extends JFrame
             public void actionPerformed(ActionEvent e) { populateTableStores();}
         });
 
+        deleteStoreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { deleteStore();}
+        });
         addPawnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { addPawn();}
@@ -202,7 +196,6 @@ public class MainWin extends JFrame
             model.addRow(row);
         }
     }
-
 
     private void populateSearchingTableCustomers()
     {
@@ -323,6 +316,13 @@ public class MainWin extends JFrame
             model.addRow(row);
         }
 
+    }
+
+    public void deleteStore()
+    {
+        DefaultTableModel tm = (DefaultTableModel) tableStores.getModel();
+        int id = (Integer) tm.getValueAt(tableStores.getSelectedRow(),0);
+        controllerStore.delete(id);
     }
 
     public void loadComboCustomers()

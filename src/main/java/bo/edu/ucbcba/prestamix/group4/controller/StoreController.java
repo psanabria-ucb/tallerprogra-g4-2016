@@ -48,4 +48,13 @@ public class StoreController
         entityManager.close();
         return response;
     }
+
+    public void delete(int id)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Store.class,id));
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }
