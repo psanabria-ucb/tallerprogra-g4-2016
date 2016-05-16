@@ -406,14 +406,9 @@ public class MainWin extends JFrame
     public void addPawn()
     {
         try {
-            /*controllerPawn.create((String) comboCustomers.getSelectedItem(),
-                    (String) comboPledges.getSelectedItem(),
-                    amountField.getText(),(String) comboType.getSelectedItem(),
-                            DateField.getText(), (String) comboStatus.getSelectedItem());*/ //--> Hay que corregir algo aqui
-
-            controllerPawn.create(String.valueOf(comboCustomers.getSelectedIndex()),
-                    String.valueOf(comboPledges.getSelectedIndex()),
-                    amountField.getText(),String.valueOf(comboType.getSelectedIndex()),
+            controllerPawn.create(String.valueOf(comboCustomers.getSelectedItem()),
+                    String.valueOf(comboPledges.getSelectedItem()),
+                    amountField.getText(),String.valueOf(comboType.getSelectedItem()),
                     DateField.getText(), String.valueOf(comboStatus.getSelectedItem()));
 
         }catch (ValidationException ex) {
