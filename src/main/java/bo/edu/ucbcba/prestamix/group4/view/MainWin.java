@@ -33,6 +33,13 @@ public class MainWin extends JFrame
     private JButton listCustomersButton;
     private JPanel customersPanel;
     private JButton deleteCustomerButton;
+    private JButton searchCustomerButton;
+    private JTextField searchCustomerField;
+    private String customerCategory = "firstName";
+    private JRadioButton searchFirstNameRadioButton;
+    private JRadioButton searchFLastNameRadioButton;
+    private JRadioButton searchCIRadioButton;
+    private JRadioButton searchMLastNameRadioButton;
 
     //PLEDGES
     private JPanel pledgesPanel;
@@ -67,6 +74,8 @@ public class MainWin extends JFrame
     private JTable tablePawns;
     private JComboBox comboType;
 
+
+
     //CONTROLLERS
     private CustomerController controllerCustomer;
     private PledgeController controllerPledge;
@@ -89,6 +98,9 @@ public class MainWin extends JFrame
         loadComboStatus();
         loadComboType();
 
+
+
+
         addCustomerButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {addCustomer();}
@@ -103,6 +115,19 @@ public class MainWin extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) { populateTableCustomers(); loadComboCustomers();}
         });
+
+        searchCustomerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { populateSearchingTableCustomers();
+            }
+        });
+
+
+
+
+
+
+
 
         addPledgeButton.addActionListener(new ActionListener() {
             @Override
@@ -177,6 +202,46 @@ public class MainWin extends JFrame
             model.addRow(row);
         }
     }
+
+
+    private void populateSearchingTableCustomers()
+    {
+        List<Customer> customers=controllerCustomer.show();
+        if (searchFirstNameRadioButton.isSelected()) {
+             customers= controllerCustomer.searchCustomerByFirstName(searchCustomerField.getText());
+        }
+        if (searchFLastNameRadioButton.isSelected()) {
+            customers= controllerCustomer.searchCustomerByFathersLastName(searchCustomerField.getText());
+        }
+        if (searchMLastNameRadioButton.isSelected()) {
+            customers= controllerCustomer.searchCustomerByMothersLastName(searchCustomerField.getText());
+        }
+        if (searchCIRadioButton.isSelected()) {
+            customers= controllerCustomer.searchCustomerByCI(searchCustomerField.getText());
+        }
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("CI");
+        model.addColumn("NOMBRE");
+        model.addColumn("APELLIDO PATERNO");
+        model.addColumn("APELLIDO MATERNO");
+        model.addColumn("DIRECCION");
+        model.addColumn("TELEFONO");
+        tableCustomers.setModel(model);
+
+        for (Customer c : customers)
+        {
+            Object[] row = new Object[6];
+
+            row[0] = c.getCi();
+            row[1] = c.getFirtsName();
+            row[2] = c.getLastNameF();
+            row[3] = c.getLastNameM();
+            row[4] = c.getAddress();
+            row[5] = c.getNumberPhone();
+            model.addRow(row);
+        }
+    }
+
 
     public void deleteCustomer()
     {

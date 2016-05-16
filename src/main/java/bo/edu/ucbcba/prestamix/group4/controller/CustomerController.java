@@ -51,4 +51,62 @@ public class CustomerController
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public List<Customer> searchCustomerByFirstName(String q) {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c WHERE lower(c.firtsName) like :firtsName", Customer.class);
+        query.setParameter("firtsName", "%" + q.toLowerCase() + "%");
+        List<Customer> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+    public List<Customer> searchCustomerByFathersLastName(String q) {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c WHERE lower(c.lastNameF) like :lastNameF", Customer.class);
+        query.setParameter("lastNameF", "%" + q.toLowerCase() + "%");
+        List<Customer> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+
+    public List<Customer> searchCustomerByMothersLastName(String q) {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c WHERE lower(c.lastNameM) like :lastNameM", Customer.class);
+        query.setParameter("lastNameM", "%" + q.toLowerCase() + "%");
+        List<Customer> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+    public List<Customer> searchCustomerByCI(String q) {
+        int a;
+        if (q.isEmpty())
+        {
+            a=0;
+        }
+        else
+        {
+           a = Integer.parseInt(q);
+        }
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c WHERE c.Ci =  :a", Customer.class);
+        query.setParameter("a",a);
+        List<Customer> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
