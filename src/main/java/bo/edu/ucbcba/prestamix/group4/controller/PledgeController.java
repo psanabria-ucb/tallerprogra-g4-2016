@@ -72,4 +72,34 @@ public class PledgeController
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+
+    public List<Pledge> searchPledgeByType(String q) {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pledge> query = entityManager.createQuery("select p from Pledge p WHERE lower(p.type) like :type", Pledge.class);
+        query.setParameter("type", "%" + q.toLowerCase() + "%");
+        List<Pledge> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+    public List<Pledge> searchPledgeByName(String q) {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pledge> query = entityManager.createQuery("select p from Pledge p WHERE lower(p.name) like :name", Pledge.class);
+        query.setParameter("name", "%" + q.toLowerCase() + "%");
+        List<Pledge> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+    public List<Pledge> searchPledgeByCode(String q) {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pledge> query = entityManager.createQuery("select p from Pledge p WHERE lower(p.cod) like :cod", Pledge.class);
+        query.setParameter("cod", "%" + q.toLowerCase() + "%");
+        List<Pledge> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+
 }

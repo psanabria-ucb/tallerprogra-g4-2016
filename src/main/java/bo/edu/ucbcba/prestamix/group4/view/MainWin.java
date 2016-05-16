@@ -74,6 +74,11 @@ public class MainWin extends JFrame
     private JButton listPawnsButton;
     private JTable tablePawns;
     private JComboBox comboType;
+    private JButton searchPledgeButton;
+    private JTextField searchPledgeTextField;
+    private JRadioButton searchPledgeByNameRadioButton;
+    private JRadioButton searchPledgeTypeRadioButton;
+    private JRadioButton searchPledgeCodRadioButton;
 
 
     //CONTROLLERS
@@ -133,6 +138,14 @@ public class MainWin extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) { deletePledge();}
         });
+
+        searchPledgeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { populateSearchingTablePledges();
+
+            }
+        });
+
 
         addStoreButton.addActionListener(new ActionListener() {
             @Override
@@ -277,6 +290,41 @@ public class MainWin extends JFrame
             model.addRow(row);
         }
     }
+
+    public void populateSearchingTablePledges()
+    {
+        List<Pledge> pledges = controllerPledge.show();
+        if (searchPledgeByNameRadioButton.isSelected()) {
+            pledges = controllerPledge.searchPledgeByName(searchPledgeTextField.getText());
+        }
+        if (searchPledgeCodRadioButton.isSelected()) {
+            pledges = controllerPledge.searchPledgeByCode(searchPledgeTextField.getText());
+        }
+        if (searchPledgeTypeRadioButton.isSelected()) {
+            pledges= controllerPledge.searchPledgeByType(searchPledgeTextField.getText());
+        }
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("COD");
+        model.addColumn("NOMBRE DE LA PRENDA");
+        model.addColumn("TIPO");
+        model.addColumn("DESCRIPCION");
+        model.addColumn("UBICACION");
+        tablePlegdes.setModel(model);
+
+        for (Pledge p : pledges)
+        {
+            Object[] row = new Object[5];
+
+            row[0] = p.getCod();
+            row[1] = p.getName();
+            row[2] = p.getType();
+            row[3] = p.getDescription();
+            row[4] = p.getLocation();
+            model.addRow(row);
+        }
+    }
+
+
 
     public void deletePledge()
     {
