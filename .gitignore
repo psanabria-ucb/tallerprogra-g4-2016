@@ -9,3 +9,5 @@ gradle-app.setting
 /local.properties
 /.idea/
 .DS_Store
+Prestamix/
+derby.log
