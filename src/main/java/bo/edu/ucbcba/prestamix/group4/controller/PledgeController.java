@@ -15,33 +15,33 @@ public class PledgeController
 
         Pledge pledge = new Pledge();
         if ((cod == null) || (cod.isEmpty())) {
-            throw new ValidationException("Error el campo codigo esta vacío");
+            throw new ValidationException("Error el campo codigo está vacío");
         }
         else {
             pledge.setCod(cod);
         }
         if ((name == null) || (name.isEmpty())){
-            throw new ValidationException("Error el campo nombre esta vacio");
+            throw new ValidationException("Error el campo nombre está vacío");
         }
         else {
             pledge.setName(name);
         }
         if ((type == null) || (type.isEmpty())){
-            throw new ValidationException("Error el campo tipo esta vacio");
+            throw new ValidationException("Error el campo tipo está vacío");
         }
         else
         {
             pledge.setType(type);
         }
         if ((description == null) || (description.isEmpty())) {
-            throw new ValidationException("Error el descripcion tipo esta vacio");
+            throw new ValidationException("Error el descripción tipo está vacío");
         }
         else {
             pledge.setDescription(description);
         }
         if ((location == null) || (location.isEmpty()))
         {
-            throw new ValidationException("Error el ubicacion tipo esta vacio");
+            throw new ValidationException("Error el ubicación tipo está vacío");
         }
         else
         {

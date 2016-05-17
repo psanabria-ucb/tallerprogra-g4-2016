@@ -14,20 +14,20 @@ public class StoreController
     {
         Store store = new Store();
         if ((name == null) || (name.isEmpty())) {
-            throw new ValidationException("Error el campo nombre esta vacío");
+            throw new ValidationException("Error el campo nombre está vacío");
         }
         else {
             store.setName(name);
 
         }
         if ((description == null) || (description.isEmpty())) {
-                throw new ValidationException("Error el campo descripcion esta vacío");
+                throw new ValidationException("Error el campo descripción está vacío");
         }
         else {
             store.setDescription(description);
         }
         if ((status == null) || (status.isEmpty())) {
-            throw new ValidationException("Error el campo estado esta vacío");
+            throw new ValidationException("Error el campo estado está vacío");
         }
         else {
             store.setStatus(status);

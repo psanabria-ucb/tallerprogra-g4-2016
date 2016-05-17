@@ -105,10 +105,17 @@ public class MainWin extends JFrame {
         loadComboStatus();
         loadComboType();
 
+
+        populateTablePawns();
+        populateTablePledges();
+        populateTableStores();
+
+
         addCustomerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addCustomer();
+                populateTableCustomers();
             }
         });
 
@@ -116,6 +123,7 @@ public class MainWin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deleteCustomer();
+                populateTableCustomers();
             }
         });
 
@@ -138,6 +146,7 @@ public class MainWin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addPledge();
+                populateTablePledges();
             }
         });
 
@@ -152,6 +161,7 @@ public class MainWin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deletePledge();
+                populateTablePledges();
             }
         });
 
@@ -168,6 +178,7 @@ public class MainWin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addStore();
+                populateTableStores();
             }
         });
 
@@ -182,12 +193,14 @@ public class MainWin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deleteStore();
+                populateTableStores();
             }
         });
         addPawnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addPawn();
+                populateTablePawns();
             }
         });
 
@@ -205,6 +218,7 @@ public class MainWin extends JFrame {
             controllerCustomer.create(ciField.getText(), firstNameField.getText(),
                     lastNameFField.getText(), lastNameMField.getText(),
                     addressArea.getText(), numberPhoneField.getText());
+            populateTableCustomers();
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -246,7 +260,14 @@ public class MainWin extends JFrame {
             customers = controllerCustomer.searchCustomerByMothersLastName(searchCustomerField.getText());
         }
         if (searchCIRadioButton.isSelected()) {
-            customers = controllerCustomer.searchCustomerByCI(searchCustomerField.getText());
+            try {
+                customers = controllerCustomer.searchCustomerByCI(searchCustomerField.getText());
+            }
+            catch (ValidationException ex)
+            {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("CI");
@@ -275,12 +296,14 @@ public class MainWin extends JFrame {
         DefaultTableModel tm = (DefaultTableModel) tableCustomers.getModel();
         int ci = (Integer) tm.getValueAt(tableCustomers.getSelectedRow(), 0);
         controllerCustomer.delete(ci);
+        populateTableCustomers();
     }
 
     public void addPledge() {
         try {
             controllerPledge.create(codField.getText(), nameField.getText(),
                     typeField.getText(), descriptionArea.getText(), locationField.getText());
+            populateTablePledges();
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -345,12 +368,14 @@ public class MainWin extends JFrame {
         DefaultTableModel tm = (DefaultTableModel) tablePlegdes.getModel();
         String cod = (String) tm.getValueAt(tablePlegdes.getSelectedRow(), 0);
         controllerPledge.delete(cod);
+        populateTablePledges();
     }
 
     public void addStore() {
         try {
             controllerStore.create(nameStoreField.getText(), descriptionStoreArea.getText(),
                     statusStoreField.getText());
+            populateTableStores();
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -381,6 +406,7 @@ public class MainWin extends JFrame {
         DefaultTableModel tm = (DefaultTableModel) tableStores.getModel();
         int id = (Integer) tm.getValueAt(tableStores.getSelectedRow(), 0);
         controllerStore.delete(id);
+        populateTableStores();
     }
 
     public void loadComboCustomers() {
@@ -414,6 +440,7 @@ public class MainWin extends JFrame {
                     String.valueOf(comboPledges.getSelectedItem()),
                     amountField.getText(), String.valueOf(comboType.getSelectedItem()),
                     DateField.getText(), String.valueOf(comboStatus.getSelectedItem()));
+            populateTablePawns();
 
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);

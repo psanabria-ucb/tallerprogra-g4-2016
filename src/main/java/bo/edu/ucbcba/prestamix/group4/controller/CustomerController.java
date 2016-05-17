@@ -17,7 +17,7 @@ public class CustomerController
         if (ci.matches("[0-9]+"))
             customer.setCi(Integer.parseInt(ci));
         else
-            throw new ValidationException("CI no es un numero o Formulario vacio");
+            throw new ValidationException("CI no es un número o Formulario vacío");
         customer.setFirtsName(firstName);
         customer.setLastNameF(lastNameF);
         customer.setLastNameM(lastNameM);
@@ -25,7 +25,7 @@ public class CustomerController
         if(numberPhone.matches("[0-9]+"))
             customer.setNumberPhone(Integer.parseInt(numberPhone));
         else
-            throw new ValidationException("Telefono no es un numero");
+            throw new ValidationException("Teléfono no es un número");
 
         EntityManager entityManager = PrestamixEntityManager.createEntityManager();
         entityManager.getTransaction().begin();
@@ -82,20 +82,24 @@ public class CustomerController
 
     public List<Customer> searchCustomerByCI(String q) {
         int a;
-        if (q.isEmpty())
-        {
-            a=0;
+        if (q.matches("[0-9]+")) {
+            if (q.isEmpty()) {
+                a = 0;
+            } else {
+                a = Integer.parseInt(q);
+            }
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c WHERE c.Ci =  :a", Customer.class);
+            query.setParameter("a", a);
+            List<Customer> response = query.getResultList();
+            entityManager.close();
+            return response;
         }
-        else
-        {
-           a = Integer.parseInt(q);
+        else {
+            throw new ValidationException("El campo debe ser un número para buscar por ese criterio");
         }
-        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
-        TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c WHERE c.Ci =  :a", Customer.class);
-        query.setParameter("a",a);
-        List<Customer> response = query.getResultList();
-        entityManager.close();
-        return response;
+
+
     }
 
 

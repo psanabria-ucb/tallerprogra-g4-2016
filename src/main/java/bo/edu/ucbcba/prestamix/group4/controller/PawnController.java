@@ -20,7 +20,7 @@ public class PawnController
         if (amount.matches("[0-9]+"))
             pawn.setAmount(Integer.parseInt(amount));
         else
-            throw new ValidationException("Monto no es un numero");
+            throw new ValidationException("Monto no es un número");
         pawn.setType(type);
         pawn.setDate(new Date(date));
         pawn.setStatus(status);
