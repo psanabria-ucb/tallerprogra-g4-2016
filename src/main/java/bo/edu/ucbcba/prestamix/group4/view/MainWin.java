@@ -38,7 +38,6 @@ public class MainWin extends JFrame {
     private JButton deleteCustomerButton;
     private JButton searchCustomerButton;
     private JTextField searchCustomerField;
-    private String customerCategory = "firstName";
     private JRadioButton searchFirstNameRadioButton;
     private JRadioButton searchFLastNameRadioButton;
     private JRadioButton searchCIRadioButton;
@@ -219,6 +218,7 @@ public class MainWin extends JFrame {
                     lastNameFField.getText(), lastNameMField.getText(),
                     addressArea.getText(), numberPhoneField.getText());
             populateTableCustomers();
+            clearCustomerFields();
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -262,9 +262,7 @@ public class MainWin extends JFrame {
         if (searchCIRadioButton.isSelected()) {
             try {
                 customers = controllerCustomer.searchCustomerByCI(searchCustomerField.getText());
-            }
-            catch (ValidationException ex)
-            {
+            } catch (ValidationException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
             }
 
@@ -299,11 +297,23 @@ public class MainWin extends JFrame {
         populateTableCustomers();
     }
 
+    public void clearCustomerFields() {
+        ciField.setText("");
+        firstNameField.setText("");
+        lastNameFField.setText("");
+        lastNameMField.setText("");
+        addressArea.setText("");
+        numberPhoneField.setText("");
+
+    }
+
+
     public void addPledge() {
         try {
             controllerPledge.create(codField.getText(), nameField.getText(),
                     typeField.getText(), descriptionArea.getText(), locationField.getText());
             populateTablePledges();
+            clearPledgeFields();
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -371,11 +381,21 @@ public class MainWin extends JFrame {
         populateTablePledges();
     }
 
+    public void clearPledgeFields() {
+        codField.setText("");
+        nameField.setText("");
+        typeField.setText("");
+        locationField.setText("");
+        descriptionArea.setText("");
+    }
+
+
     public void addStore() {
         try {
             controllerStore.create(nameStoreField.getText(), descriptionStoreArea.getText(),
                     statusStoreField.getText());
             populateTableStores();
+            clearStoreFields();
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -409,6 +429,14 @@ public class MainWin extends JFrame {
         populateTableStores();
     }
 
+    public void clearStoreFields()
+    {
+        nameStoreField.setText("");
+        descriptionStoreArea.setText("");
+        statusStoreField.setText("");
+    }
+
+
     public void loadComboCustomers() {
         List<Customer> customers = controllerCustomer.show();
         for (Customer c : customers) {
@@ -441,6 +469,7 @@ public class MainWin extends JFrame {
                     amountField.getText(), String.valueOf(comboType.getSelectedItem()),
                     DateField.getText(), String.valueOf(comboStatus.getSelectedItem()));
             populateTablePawns();
+            clearPawnFields();
 
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
@@ -471,6 +500,15 @@ public class MainWin extends JFrame {
             row[6] = p.getStatus();
             model.addRow(row);
         }
+    }
+
+    public void clearPawnFields()
+    {
+
+        amountField.setText("");
+        DateField.setText("");
+        searchPledgeTextField.setText("");
+
     }
 
     {

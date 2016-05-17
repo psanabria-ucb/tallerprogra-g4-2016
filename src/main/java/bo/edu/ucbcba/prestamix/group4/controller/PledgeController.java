@@ -15,7 +15,7 @@ public class PledgeController
 
         Pledge pledge = new Pledge();
         if ((cod == null) || (cod.isEmpty())) {
-            throw new ValidationException("Error el campo codigo está vacío");
+            throw new ValidationException("Error el campo código está vacío");
         }
         else {
             pledge.setCod(cod);
