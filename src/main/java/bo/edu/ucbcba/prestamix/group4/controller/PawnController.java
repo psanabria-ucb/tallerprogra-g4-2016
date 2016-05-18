@@ -41,4 +41,13 @@ public class PawnController
         return response;
     }
 
+    public void delete(int id)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Pawn.class,id));
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
 }
