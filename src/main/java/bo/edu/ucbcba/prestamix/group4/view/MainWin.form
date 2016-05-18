@@ -95,7 +95,9 @@
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <lineWrap value="true"/>
+                </properties>
               </component>
               <component id="3386" class="javax.swing.JTextField" binding="numberPhoneField">
                 <constraints>
@@ -282,7 +284,9 @@
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <lineWrap value="true"/>
+                </properties>
               </component>
               <component id="b4bec" class="javax.swing.JTextField" binding="locationField">
                 <constraints>
@@ -543,7 +547,9 @@
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <lineWrap value="true"/>
+                </properties>
               </component>
               <component id="13ac2" class="javax.swing.JTextField" binding="statusStoreField">
                 <constraints>

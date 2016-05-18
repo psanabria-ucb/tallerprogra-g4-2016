@@ -93,7 +93,7 @@ public class MainWin extends JFrame {
     public MainWin() {
         super("-PRESTAMIX-");
         setContentPane(rootPanel);
-        setSize(600, 600);
+        setSize(800, 600);
         //pack();
         controllerCustomer = new CustomerController();
         controllerPledge = new PledgeController();
@@ -574,6 +574,7 @@ public class MainWin extends JFrame {
         lastNameMField = new JTextField();
         customersPanel.add(lastNameMField, new GridConstraints(3, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         addressArea = new JTextArea();
+        addressArea.setLineWrap(true);
         customersPanel.add(addressArea, new GridConstraints(4, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         numberPhoneField = new JTextField();
         customersPanel.add(numberPhoneField, new GridConstraints(5, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
@@ -636,6 +637,7 @@ public class MainWin extends JFrame {
         typeField = new JTextField();
         pledgesPanel.add(typeField, new GridConstraints(2, 2, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         descriptionArea = new JTextArea();
+        descriptionArea.setLineWrap(true);
         pledgesPanel.add(descriptionArea, new GridConstraints(3, 2, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         locationField = new JTextField();
         pledgesPanel.add(locationField, new GridConstraints(4, 2, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
@@ -724,6 +726,7 @@ public class MainWin extends JFrame {
         nameStoreField = new JTextField();
         storesPanel.add(nameStoreField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         descriptionStoreArea = new JTextArea();
+        descriptionStoreArea.setLineWrap(true);
         storesPanel.add(descriptionStoreArea, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         statusStoreField = new JTextField();
         storesPanel.add(statusStoreField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
