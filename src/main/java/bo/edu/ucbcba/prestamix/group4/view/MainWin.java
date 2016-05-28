@@ -33,7 +33,7 @@ public class MainWin extends JFrame {
     private JTextArea addressArea;
     private JTextField numberPhoneField;
     private JButton addCustomerButton;
-    private JButton listCustomersButton;
+    private JButton editCustomerButton;
     private JPanel customersPanel;
     private JButton deleteCustomerButton;
     private JButton searchCustomerButton;
@@ -127,11 +127,10 @@ public class MainWin extends JFrame {
             }
         });
 
-        listCustomersButton.addActionListener(new ActionListener() {
+        editCustomerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                populateTableCustomers();
-                loadComboCustomers();
+                editCustomer();
             }
         });
 
@@ -237,6 +236,7 @@ public class MainWin extends JFrame {
     private void populateTableCustomers() {
         List<Customer> customers = controllerCustomer.show();
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
         model.addColumn("CI");
         model.addColumn("NOMBRE");
         model.addColumn("APELLIDO PATERNO");
@@ -246,14 +246,15 @@ public class MainWin extends JFrame {
         tableCustomers.setModel(model);
 
         for (Customer c : customers) {
-            Object[] row = new Object[6];
+            Object[] row = new Object[7];
 
-            row[0] = c.getCi();
-            row[1] = c.getFirtsName();
-            row[2] = c.getLastNameF();
-            row[3] = c.getLastNameM();
-            row[4] = c.getAddress();
-            row[5] = c.getNumberPhone();
+            row[0] = c.getId();
+            row[1] = c.getCi();
+            row[2] = c.getFirtsName();
+            row[3] = c.getLastNameF();
+            row[4] = c.getLastNameM();
+            row[5] = c.getAddress();
+            row[6] = c.getNumberPhone();
             model.addRow(row);
         }
     }
@@ -287,14 +288,15 @@ public class MainWin extends JFrame {
         tableCustomers.setModel(model);
 
         for (Customer c : customers) {
-            Object[] row = new Object[6];
+            Object[] row = new Object[7];
 
-            row[0] = c.getCi();
-            row[1] = c.getFirtsName();
-            row[2] = c.getLastNameF();
-            row[3] = c.getLastNameM();
-            row[4] = c.getAddress();
-            row[5] = c.getNumberPhone();
+            row[0] = c.getId();
+            row[1] = c.getCi();
+            row[2] = c.getFirtsName();
+            row[3] = c.getLastNameF();
+            row[4] = c.getLastNameM();
+            row[5] = c.getAddress();
+            row[6] = c.getNumberPhone();
             model.addRow(row);
         }
     }
@@ -317,6 +319,16 @@ public class MainWin extends JFrame {
 
     }
 
+    public void editCustomer()
+    {
+        DefaultTableModel tm = (DefaultTableModel) tableCustomers.getModel();
+        int id = (Integer) tm.getValueAt(tableCustomers.getSelectedRow(), 0);
+        Customer c = controllerCustomer.find(id);
+
+        EditCustomer form = new EditCustomer(this,id,c,controllerCustomer);
+        form.setVisible(true);
+    }
+
 
     public void addPledge() {
         try {
@@ -335,6 +347,7 @@ public class MainWin extends JFrame {
     public void populateTablePledges() {
         List<Pledge> pledges = controllerPledge.show();
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
         model.addColumn("COD");
         model.addColumn("NOMBRE DE LA PRENDA");
         model.addColumn("TIPO");
@@ -343,13 +356,14 @@ public class MainWin extends JFrame {
         tablePlegdes.setModel(model);
 
         for (Pledge p : pledges) {
-            Object[] row = new Object[5];
+            Object[] row = new Object[6];
 
-            row[0] = p.getCod();
-            row[1] = p.getName();
-            row[2] = p.getType();
-            row[3] = p.getDescription();
-            row[4] = p.getLocation();
+            row[0] = p.getId();
+            row[1] = p.getCod();
+            row[2] = p.getName();
+            row[3] = p.getType();
+            row[4] = p.getDescription();
+            row[5] = p.getLocation();
             model.addRow(row);
         }
     }
@@ -366,6 +380,7 @@ public class MainWin extends JFrame {
             pledges = controllerPledge.searchPledgeByType(searchPledgeTextField.getText());
         }
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
         model.addColumn("COD");
         model.addColumn("NOMBRE DE LA PRENDA");
         model.addColumn("TIPO");
@@ -374,13 +389,14 @@ public class MainWin extends JFrame {
         tablePlegdes.setModel(model);
 
         for (Pledge p : pledges) {
-            Object[] row = new Object[5];
+            Object[] row = new Object[6];
 
-            row[0] = p.getCod();
-            row[1] = p.getName();
-            row[2] = p.getType();
-            row[3] = p.getDescription();
-            row[4] = p.getLocation();
+            row[0] = p.getId();
+            row[1] = p.getCod();
+            row[2] = p.getName();
+            row[3] = p.getType();
+            row[4] = p.getDescription();
+            row[5] = p.getLocation();
             model.addRow(row);
         }
     }
@@ -593,9 +609,9 @@ public class MainWin extends JFrame {
         deleteCustomerButton = new JButton();
         deleteCustomerButton.setText("Eliminar");
         customersPanel.add(deleteCustomerButton, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        listCustomersButton = new JButton();
-        listCustomersButton.setText("Ver");
-        customersPanel.add(listCustomersButton, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        editCustomerButton = new JButton();
+        editCustomerButton.setText("Ver");
+        customersPanel.add(editCustomerButton, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchCustomerButton = new JButton();
         searchCustomerButton.setText("Buscar");
         customersPanel.add(searchCustomerButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));

@@ -147,12 +147,12 @@
                   <text value="Eliminar"/>
                 </properties>
               </component>
-              <component id="b3d69" class="javax.swing.JButton" binding="listCustomersButton">
+              <component id="b3d69" class="javax.swing.JButton" binding="editCustomerButton">
                 <constraints>
                   <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Ver"/>
+                  <text value="Editar"/>
                 </properties>
               </component>
               <component id="69fcf" class="javax.swing.JButton" binding="searchCustomerButton">
