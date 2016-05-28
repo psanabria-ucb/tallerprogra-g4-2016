@@ -103,4 +103,7 @@ public class Pawn
     public void setPledge(Pledge pledge) {
         this.pledge = pledge;
     }
+
+
+
 }

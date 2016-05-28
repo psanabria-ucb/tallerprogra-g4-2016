@@ -480,7 +480,7 @@ public class MainWin extends JFrame {
             controllerPawn.create(String.valueOf(c.getCi()),
                     String.valueOf(p.getCod()),
                     amountField.getText(), String.valueOf(comboType.getSelectedItem()),
-                    DateField.getText(), String.valueOf(comboStatus.getSelectedItem()),c,p);
+                    DateField.getText(), String.valueOf(comboStatus.getSelectedItem()), c, p);
             populateTablePawns();
             clearPawnFields();
 
@@ -494,6 +494,7 @@ public class MainWin extends JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("CI CLIENTE");
+        model.addColumn("NOMBRE CLIENTE");
         model.addColumn("COD PRENDA");
         model.addColumn("MONTO");
         model.addColumn("TIPO");
@@ -502,15 +503,16 @@ public class MainWin extends JFrame {
         tablePawns.setModel(model);
 
         for (Pawn p : pawns) {
-            Object[] row = new Object[7];
+            Object[] row = new Object[8];
 
             row[0] = p.getId();
             row[1] = p.getCiCustomer();
-            row[2] = p.getCodPledge();
-            row[3] = p.getAmount();
-            row[4] = p.getType();
-            row[5] = p.getDate();
-            row[6] = p.getStatus();
+            row[2] = p.getCustomer();
+            row[3] = p.getCodPledge();
+            row[4] = p.getAmount();
+            row[5] = p.getType();
+            row[6] = p.getDate();
+            row[7] = p.getStatus();
             model.addRow(row);
         }
     }
@@ -671,10 +673,10 @@ public class MainWin extends JFrame {
         pawnsPanel.setLayout(new GridLayoutManager(9, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedMain.addTab("Empeños", pawnsPanel);
         final JLabel label12 = new JLabel();
-        label12.setText("CI Cliente:");
+        label12.setText("Cliente:");
         pawnsPanel.add(label12, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label13 = new JLabel();
-        label13.setText("Cod Prenda:");
+        label13.setText("Prenda:");
         pawnsPanel.add(label13, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label14 = new JLabel();
         label14.setText("Monto:");
