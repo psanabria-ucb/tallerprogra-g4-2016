@@ -449,16 +449,16 @@ public class MainWin extends JFrame {
 
 
     public void loadComboCustomers() {
-        List<Customer> customers = controllerCustomer.show();
+        List<Customer> customers = controllerCustomer.getAllCustomers();
         for (Customer c : customers) {
-            comboCustomers.addItem(c.getCi());
+            comboCustomers.addItem(c);
         }
     }
 
     public void loadComboPledges() {
-        List<Pledge> pledges = controllerPledge.show();
+        List<Pledge> pledges = controllerPledge.getAllPledges();
         for (Pledge p : pledges) {
-            comboPledges.addItem(p.getCod());
+            comboPledges.addItem(p);
         }
     }
 
@@ -475,14 +475,14 @@ public class MainWin extends JFrame {
 
     public void addPawn() {
         try {
-            controllerPawn.create(String.valueOf(comboCustomers.getSelectedItem()),
-                    String.valueOf(comboPledges.getSelectedItem()),
+            Customer c = (Customer) comboCustomers.getSelectedItem();
+            Pledge p = (Pledge) comboPledges.getSelectedItem();
+            controllerPawn.create(String.valueOf(c.getCi()),
+                    String.valueOf(p.getCod()),
                     amountField.getText(), String.valueOf(comboType.getSelectedItem()),
-                    DateField.getText(), String.valueOf(comboStatus.getSelectedItem()));
+                    DateField.getText(), String.valueOf(comboStatus.getSelectedItem()),c,p);
             populateTablePawns();
             clearPawnFields();
-            comboCustomers.removeItem(comboCustomers.getSelectedItem());
-            comboPledges.removeItem(comboPledges.getSelectedItem());
 
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);

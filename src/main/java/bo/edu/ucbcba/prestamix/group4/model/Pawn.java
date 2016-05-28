@@ -25,6 +25,12 @@ public class Pawn
     @Column(length = 10)
     private String status;
 
+    @ManyToOne
+    private Customer customer;
+
+    @OneToOne
+    private Pledge pledge;
+
     public String getStatus() {
         return status;
     }
@@ -80,5 +86,21 @@ public class Pawn
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Pledge getPledge() {
+        return pledge;
+    }
+
+    public void setPledge(Pledge pledge) {
+        this.pledge = pledge;
     }
 }

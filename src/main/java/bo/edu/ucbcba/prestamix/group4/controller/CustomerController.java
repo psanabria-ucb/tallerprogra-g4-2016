@@ -80,7 +80,8 @@ public class CustomerController
         return response;
     }
 
-    public List<Customer> searchCustomerByCI(String q) {
+    public List<Customer> searchCustomerByCI(String q)
+    {
         int a;
         if (q.matches("[0-9]+")) {
             if (q.isEmpty()) {
@@ -102,6 +103,13 @@ public class CustomerController
 
     }
 
+    public List<Customer> getAllCustomers() {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c", Customer.class);
+        List<Customer> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
 
 
 

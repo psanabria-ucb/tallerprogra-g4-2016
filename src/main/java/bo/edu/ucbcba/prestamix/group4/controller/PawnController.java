@@ -2,7 +2,9 @@ package bo.edu.ucbcba.prestamix.group4.controller;
 
 import bo.edu.ucbcba.prestamix.group4.dao.PrestamixEntityManager;
 import bo.edu.ucbcba.prestamix.group4.exceptions.ValidationException;
+import bo.edu.ucbcba.prestamix.group4.model.Customer;
 import bo.edu.ucbcba.prestamix.group4.model.Pawn;
+import bo.edu.ucbcba.prestamix.group4.model.Pledge;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -12,7 +14,7 @@ import java.util.List;
 public class PawnController
 {
     public void create(String ciCustomer, String codPledge, String amount, String type,
-                       String date, String status)
+                       String date, String status, Customer customer, Pledge pledge)
     {
         Pawn pawn = new Pawn();
         pawn.setCiCustomer(Integer.parseInt(ciCustomer));
@@ -24,6 +26,8 @@ public class PawnController
         pawn.setType(type);
         pawn.setDate(new Date(date));
         pawn.setStatus(status);
+        pawn.setCustomer(customer);
+        pawn.setPledge(pledge);
 
         EntityManager entityManager = PrestamixEntityManager.createEntityManager();
         entityManager.getTransaction().begin();
@@ -49,5 +53,6 @@ public class PawnController
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
 
 }

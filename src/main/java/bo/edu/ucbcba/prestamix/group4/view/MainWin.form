@@ -384,7 +384,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="CI Cliente:"/>
+                  <text value="Cliente:"/>
                 </properties>
               </component>
               <component id="1d2fe" class="javax.swing.JLabel">
@@ -392,7 +392,7 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Cod Prenda:"/>
+                  <text value="Prenda:"/>
                 </properties>
               </component>
               <component id="bf63d" class="javax.swing.JLabel">

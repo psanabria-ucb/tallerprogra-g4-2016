@@ -101,5 +101,14 @@ public class PledgeController
         return response;
     }
 
+    public List<Pledge> getAllPledges()
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pledge> query = entityManager.createQuery("select p from Pledge p", Pledge.class);
+        List<Pledge> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
 
 }
