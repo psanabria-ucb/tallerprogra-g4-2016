@@ -9,6 +9,7 @@ import bo.edu.ucbcba.prestamix.group4.model.Pledge;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +20,19 @@ public class PawnController
                        String amount, String type, String date, String status)
     {
         Pawn pawn = new Pawn();
-        Date d = new Date(date);
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        String convert = dateFormat.format(d);
+
+        if (isDateValid(date))
+        {
+            Date d = new Date(date);
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            String convert = dateFormat.format(d);
+            pawn.setDate(convert);
+
+        }
+        else {
+            throw new ValidationException("La fecha debe estar escrita en el formato Mes/Día/Año");
+        }
+
         pawn.setNameCustomer(nameCustomer);
         pawn.setCodPledge(codPledge);
         if (amount.matches("[0-9]+"))
@@ -29,7 +40,7 @@ public class PawnController
         else
             throw new ValidationException("Monto no es un número");
         pawn.setType(type);
-        pawn.setDate(convert);
+
         pawn.setStatus(status);
 
 
@@ -38,6 +49,19 @@ public class PawnController
         entityManager.persist(pawn);
         entityManager.getTransaction().commit();
         entityManager.close();
+    }
+
+    public static boolean isDateValid(String date)
+    {
+        String DATE_FORMAT = "MM-dd-yyyy";
+        try {
+            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+            df.setLenient(false);
+            df.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     public List<Pawn> show()

@@ -127,12 +127,7 @@ public class MainWin extends JFrame {
             }
         });
 
-        listCustomersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                populateTableCustomers();
-            }
-        });
+
 
         searchCustomerButton.addActionListener(new ActionListener() {
             @Override
@@ -328,7 +323,7 @@ public class MainWin extends JFrame {
             loadComboPledges();
             populateTablePledges();
             clearPledgeFields();
-            comboCustomers.addItem(cod);
+
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -592,12 +587,6 @@ public class MainWin extends JFrame {
         customersPanel.add(addCustomerButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         tableCustomers = new JTable();
         customersPanel.add(tableCustomers, new GridConstraints(6, 1, 3, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        deleteCustomerButton = new JButton();
-        deleteCustomerButton.setText("Eliminar");
-        customersPanel.add(deleteCustomerButton, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        listCustomersButton = new JButton();
-        listCustomersButton.setText("Ver");
-        customersPanel.add(listCustomersButton, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchCustomerButton = new JButton();
         searchCustomerButton.setText("Buscar");
         customersPanel.add(searchCustomerButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -616,6 +605,9 @@ public class MainWin extends JFrame {
         searchMLastNameRadioButton = new JRadioButton();
         searchMLastNameRadioButton.setText("Apellido Materno");
         customersPanel.add(searchMLastNameRadioButton, new GridConstraints(10, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        deleteCustomerButton = new JButton();
+        deleteCustomerButton.setText("Eliminar");
+        customersPanel.add(deleteCustomerButton, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         pledgesPanel = new JPanel();
         pledgesPanel.setLayout(new GridLayoutManager(10, 4, new Insets(0, 0, 0, 0), -1, -1));
         tabbedMain.addTab("Prendas", pledgesPanel);
@@ -684,7 +676,7 @@ public class MainWin extends JFrame {
         label14.setText("Monto:");
         pawnsPanel.add(label14, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label15 = new JLabel();
-        label15.setText("Fecha:");
+        label15.setText("Fecha (MM/dd/aaaa):");
         pawnsPanel.add(label15, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label16 = new JLabel();
         label16.setText("Estado:");

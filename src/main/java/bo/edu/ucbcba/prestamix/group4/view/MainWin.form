@@ -139,14 +139,6 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="1f415" class="javax.swing.JButton" binding="deleteCustomerButton">
-                <constraints>
-                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Eliminar"/>
-                </properties>
-              </component>
               <component id="69fcf" class="javax.swing.JButton" binding="searchCustomerButton">
                 <constraints>
                   <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -196,12 +188,12 @@
                   <text value="Apellido Materno"/>
                 </properties>
               </component>
-              <component id="1b1f" class="javax.swing.JButton" binding="listCustomersButton">
+              <component id="1f415" class="javax.swing.JButton" binding="deleteCustomerButton">
                 <constraints>
-                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Ver"/>
+                  <text value="Eliminar"/>
                 </properties>
               </component>
             </children>
