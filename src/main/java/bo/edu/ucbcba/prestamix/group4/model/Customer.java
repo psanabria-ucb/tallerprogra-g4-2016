@@ -27,7 +27,6 @@ public class Customer
 
     private int numberPhone;
 
-    @OneToMany
     private List<Pawn> pawns;
 
     public int getCi() {
@@ -78,7 +77,7 @@ public class Customer
         this.numberPhone = numberPhone;
     }
 
-    public List<Pawn> getPawns() {
+   public List<Pawn> getPawns() {
         return pawns;
     }
 

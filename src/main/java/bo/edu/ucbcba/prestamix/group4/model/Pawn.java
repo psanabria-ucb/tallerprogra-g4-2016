@@ -10,7 +10,7 @@ public class Pawn
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private int ciCustomer;
+    private String nameCustomer;
 
     @Column(length = 100)
     private String codPledge;
@@ -20,16 +20,10 @@ public class Pawn
     @Column(length = 10)
     private String type;
 
-    private Date date;
+    private String date;
 
     @Column(length = 10)
     private String status;
-
-    @ManyToOne
-    private Customer customer;
-
-    @OneToOne
-    private Pledge pledge;
 
     public String getStatus() {
         return status;
@@ -56,14 +50,6 @@ public class Pawn
         this.codPledge = codPledge;
     }
 
-    public int getCiCustomer() {
-        return ciCustomer;
-    }
-
-    public void setCiCustomer(int ciCustomer) {
-        this.ciCustomer = ciCustomer;
-    }
-
     public int getAmount() {
         return amount;
     }
@@ -80,30 +66,20 @@ public class Pawn
         this.type = type;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getNameCustomer() {
+        return nameCustomer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setNameCustomer(String nameCustomer) {
+        this.nameCustomer = nameCustomer;
     }
-
-    public Pledge getPledge() {
-        return pledge;
-    }
-
-    public void setPledge(Pledge pledge) {
-        this.pledge = pledge;
-    }
-
-
 
 }

@@ -111,28 +111,14 @@ public class CustomerController
         return response;
     }
 
-    public Customer find(int id)
-    {
-        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
-        entityManager.getTransaction().begin();
-        Customer customer = entityManager.find(Customer.class,id);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        return customer;
-    }
 
-    public void update(int id, int ci, String fn, String lnp, String lnm, String a, int n)
-    {
-        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
-        entityManager.getTransaction().begin();
-        Customer customer = entityManager.find(Customer.class,id);
-        customer.setCi(ci);
-        customer.setFirtsName(fn);
-        customer.setLastNameF(lnp);
-        customer.setLastNameM(lnm);
-        customer.setAddress(a);
-        customer.setNumberPhone(n);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-    }
+
+
+
+
+
+
+
+
+
 }
