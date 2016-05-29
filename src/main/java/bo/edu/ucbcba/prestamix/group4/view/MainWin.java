@@ -131,7 +131,6 @@ public class MainWin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 populateTableCustomers();
-                loadComboCustomers();
             }
         });
 
@@ -222,13 +221,13 @@ public class MainWin extends JFrame {
 
     public void addCustomer() {
         try {
-            String ci = ciField.getText();
             controllerCustomer.create(ciField.getText(), firstNameField.getText(),
                     lastNameFField.getText(), lastNameMField.getText(),
                     addressArea.getText(), numberPhoneField.getText());
+            comboCustomers.removeAllItems();
+            loadComboCustomers();
             populateTableCustomers();
             clearCustomerFields();
-            comboCustomers.addItem(ci);
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -304,6 +303,8 @@ public class MainWin extends JFrame {
         DefaultTableModel tm = (DefaultTableModel) tableCustomers.getModel();
         int ci = (Integer) tm.getValueAt(tableCustomers.getSelectedRow(), 0);
         controllerCustomer.delete(ci);
+        comboCustomers.removeAllItems();
+        loadComboCustomers();
         populateTableCustomers();
     }
 
@@ -323,6 +324,8 @@ public class MainWin extends JFrame {
             String cod = codField.getText();
             controllerPledge.create(codField.getText(), nameField.getText(),
                     typeField.getText(), descriptionArea.getText(), locationField.getText());
+            comboPledges.removeAllItems();
+            loadComboPledges();
             populateTablePledges();
             clearPledgeFields();
             comboCustomers.addItem(cod);
@@ -390,6 +393,8 @@ public class MainWin extends JFrame {
         DefaultTableModel tm = (DefaultTableModel) tablePlegdes.getModel();
         String cod = (String) tm.getValueAt(tablePlegdes.getSelectedRow(), 0);
         controllerPledge.delete(cod);
+        comboPledges.removeAllItems();
+        loadComboPledges();
         populateTablePledges();
     }
 
@@ -449,7 +454,7 @@ public class MainWin extends JFrame {
 
 
     public void loadComboCustomers() {
-        List<Customer> customers = controllerCustomer.getAllCustomers();
+        List<Customer> customers = controllerCustomer.show();
         for (Customer c : customers) {
             comboCustomers.addItem(c);
         }
@@ -475,12 +480,10 @@ public class MainWin extends JFrame {
 
     public void addPawn() {
         try {
-            Customer c = (Customer) comboCustomers.getSelectedItem();
-            Pledge p = (Pledge) comboPledges.getSelectedItem();
-            controllerPawn.create(String.valueOf(c.getCi()),
-                    String.valueOf(p.getCod()),
+            controllerPawn.create(String.valueOf(comboCustomers.getSelectedItem()),
+                    String.valueOf(comboPledges.getSelectedItem()),
                     amountField.getText(), String.valueOf(comboType.getSelectedItem()),
-                    DateField.getText(), String.valueOf(comboStatus.getSelectedItem()), c, p);
+                    DateField.getText(), String.valueOf(comboStatus.getSelectedItem()));
             populateTablePawns();
             clearPawnFields();
 
@@ -503,16 +506,15 @@ public class MainWin extends JFrame {
         tablePawns.setModel(model);
 
         for (Pawn p : pawns) {
-            Object[] row = new Object[8];
+            Object[] row = new Object[7];
 
             row[0] = p.getId();
-            row[1] = p.getCiCustomer();
-            row[2] = p.getCustomer();
-            row[3] = p.getCodPledge();
-            row[4] = p.getAmount();
-            row[5] = p.getType();
-            row[6] = p.getDate();
-            row[7] = p.getStatus();
+            row[1] = p.getNameCustomer();
+            row[2] = p.getCodPledge();
+            row[3] = p.getAmount();
+            row[4] = p.getType();
+            row[5] = p.getDate();
+            row[6] = p.getStatus();
             model.addRow(row);
         }
     }

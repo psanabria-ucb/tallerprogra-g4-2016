@@ -6,9 +6,6 @@ import javax.persistence.*;
 public class Pledge
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
     private String cod;
 
     @Column(length = 100)
@@ -62,14 +59,6 @@ public class Pledge
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

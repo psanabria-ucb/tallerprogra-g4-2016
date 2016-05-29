@@ -7,9 +7,6 @@ import java.util.List;
 public class Customer
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
     private int Ci;
 
     @Column(length = 100)
@@ -83,14 +80,6 @@ public class Customer
 
     public void setPawns(List<Pawn> pawns) {
         this.pawns = pawns;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

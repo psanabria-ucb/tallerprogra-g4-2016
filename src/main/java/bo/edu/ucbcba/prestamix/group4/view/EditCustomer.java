@@ -31,9 +31,6 @@ public class EditCustomer extends JDialog
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cc.update(id,Integer.valueOf(ciField.getText()),firstNameField.getText(),
-                        lastNamePField.getText(),lastNameFieldM.getText(),
-                        addressArea.getText(),Integer.valueOf(numberPhoneField.getText()));
                 cancel();
             }
         });
