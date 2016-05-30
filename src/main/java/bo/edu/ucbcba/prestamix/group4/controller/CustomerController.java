@@ -17,8 +17,17 @@ public class CustomerController
         if (ci.matches("[0-9]+")) {
             if (ci.length()>9)
                 throw new ValidationException("El ci no debe tener mas de 9 digitos");
-            else
-                customer.setCi(Integer.parseInt(ci));
+            else {
+                int a = Integer.parseInt(ci);
+                EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+                TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c WHERE c.Ci =  :a", Customer.class);
+                query.setParameter("a", a);
+                List<Customer> response = query.getResultList();
+                if (response.isEmpty())
+                    customer.setCi(Integer.parseInt(ci));
+                else
+                    throw new ValidationException("El Ci ya existe");
+            }
         }
         else
             throw new ValidationException("CI no es un número");
@@ -144,8 +153,6 @@ public class CustomerController
         else {
             throw new ValidationException("El campo debe ser un número para buscar por ese criterio");
         }
-
-
     }
 
     public List<Customer> getAllCustomers() {
