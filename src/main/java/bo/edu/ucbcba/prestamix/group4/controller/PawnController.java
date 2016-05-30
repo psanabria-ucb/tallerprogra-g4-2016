@@ -139,7 +139,17 @@ public class PawnController
         return response;
     }
 
+    public List<Pawn> searchPawnByDate(String q)
+    {
 
+
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            TypedQuery<Pawn> query = entityManager.createQuery("select p from Pawn p WHERE lower(p.date) like :date", Pawn.class);
+            query.setParameter("date", "%" + q.toLowerCase() + "%");
+            List<Pawn> response = query.getResultList();
+            entityManager.close();
+            return response;
+    }
 
 
 
