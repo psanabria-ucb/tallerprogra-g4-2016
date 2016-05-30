@@ -156,11 +156,18 @@ public class PawnController
 
     public void delete(int id)
     {
-        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.remove(entityManager.find(Pawn.class,id));
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        if(id!=0)
+        {
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.find(Pawn.class, id));
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        }
+        else
+        {
+            throw new ValidationException("Error");
+        }
     }
 
 

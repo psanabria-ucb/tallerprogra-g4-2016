@@ -100,11 +100,19 @@ public class PledgeController
 
     public void delete(String cod)
     {
-        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.remove(entityManager.find(Pledge.class,cod));
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        if(cod.equals(" "))
+        {
+           throw new ValidationException("Error");
+        }
+        else
+        {
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.find(Pledge.class,cod));
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        }
+
     }
 
 

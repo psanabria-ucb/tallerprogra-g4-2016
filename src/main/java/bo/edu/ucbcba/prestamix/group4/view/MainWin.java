@@ -399,12 +399,26 @@ public class MainWin extends JFrame {
 
 
     public void deletePledge() {
+
         DefaultTableModel tm = (DefaultTableModel) tablePlegdes.getModel();
-        String cod = (String) tm.getValueAt(tablePlegdes.getSelectedRow(), 0);
-        controllerPledge.delete(cod);
-        comboPledges.removeAllItems();
-        loadComboPledges();
-        populateTablePledges();
+        if (tablePlegdes.getSelectedRowCount() > 0)
+        {
+            String cod = (String) tm.getValueAt(tablePlegdes.getSelectedRow(), 0);
+            controllerPledge.delete(cod);
+            comboPledges.removeAllItems();
+            loadComboPledges();
+            populateTablePledges();
+        }
+        else
+        {
+            try{
+                controllerPledge.delete(" ");
+
+            }catch (ValidationException ex)
+            {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "No selecciono ningun elemento", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public void clearPledgeFields() {
@@ -450,9 +464,21 @@ public class MainWin extends JFrame {
 
     public void deleteStore() {
         DefaultTableModel tm = (DefaultTableModel) tableStores.getModel();
-        int id = (Integer) tm.getValueAt(tableStores.getSelectedRow(), 0);
-        controllerStore.delete(id);
-        populateTableStores();
+        if (tableStores.getSelectedRowCount() > 0) {
+            int id = (Integer) tm.getValueAt(tableStores.getSelectedRow(), 0);
+            controllerStore.delete(id);
+            populateTableStores();
+        }
+        else
+        {
+            try{
+                controllerStore.delete(0);
+            }
+            catch (ValidationException ex)
+            {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "No selecciono ningun elemento", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public void clearStoreFields() {
@@ -595,9 +621,21 @@ public class MainWin extends JFrame {
 
     public void deletePawn() {
         DefaultTableModel tm = (DefaultTableModel) tablePawns.getModel();
-        int id = (Integer) tm.getValueAt(tablePawns.getSelectedRow(), 0);
-        controllerPawn.delete(id);
-        populateTablePawns();
+        if(tablePawns.getSelectedRowCount() > 0) {
+            int id = (Integer) tm.getValueAt(tablePawns.getSelectedRow(), 0);
+            controllerPawn.delete(id);
+            populateTablePawns();
+        }
+        else
+        {
+            try{
+                controllerPawn.delete(0);
+            }
+            catch (ValidationException ex)
+            {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "No se selecciono ningun elemento", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public void clearPawnFields() {
