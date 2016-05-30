@@ -17,15 +17,40 @@ public class PledgeController
         if ((cod == null) || (cod.isEmpty())) {
             throw new ValidationException("Error el campo código está vacío");
         }
-        else {
-            pledge.setCod(cod);
+        else
+        {
+            if(cod.length()>20)
+            {
+                throw new ValidationException("Error el código supera los 20 caracteres");
+            }
+            else
+            {
+                List<Pledge> response = searchPledgeByCode(cod);
+                if(response.isEmpty())
+                {
+                    pledge.setCod(cod);
+                }
+                else
+                {
+                    throw new ValidationException("Error el código de la prenda ya existe");
+                }
+            }
         }
+
         if ((name == null) || (name.isEmpty())){
             throw new ValidationException("Error el campo nombre está vacío");
         }
-        else {
-            pledge.setName(name);
+        else
+        {
+            if(name.length()>25)
+            {
+                throw new ValidationException("Error el nombre de la prenda supera los 25 caracteres");
+            }
+            else{
+                pledge.setName(name);
+            }
         }
+
         if ((type == null) || (type.isEmpty())){
             throw new ValidationException("Error el campo tipo está vacío");
         }
@@ -36,12 +61,21 @@ public class PledgeController
         if ((description == null) || (description.isEmpty())) {
             throw new ValidationException("Error el descripción tipo está vacío");
         }
-        else {
-            pledge.setDescription(description);
-        }
-        if ((location == null) || (location.isEmpty()))
+        else
         {
-            throw new ValidationException("Error el ubicación tipo está vacío");
+            if(description.length()>90)
+            {
+                throw  new ValidationException("La descripción debe ser de máximo 90 caracteres");
+            }
+            else
+            {
+                pledge.setDescription(description);
+            }
+        }
+
+        if ((location == null) || (location.isEmpty()) || (location.equals("null")))
+        {
+            throw new ValidationException("Error el ubicación está vacío o no tiene depositos registrados");
         }
         else
         {
@@ -99,6 +133,16 @@ public class PledgeController
         List<Pledge> response = query.getResultList();
         entityManager.close();
         return response;
+    }
+
+    public List<Pledge> searchPledgeByLocation(String q)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pledge> query = entityManager.createQuery("select p from Pledge p WHERE lower(p.location) like :location", Pledge.class);
+        query.setParameter("location", "%" + q.toLowerCase() + "%");
+        List<Pledge> response = query.getResultList();
+        entityManager.close();
+        return  response;
     }
 
     public List<Pledge> getAllPledges()

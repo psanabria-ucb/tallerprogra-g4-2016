@@ -24,7 +24,13 @@ public class StoreController
                 throw new ValidationException("Error el campo descripción está vacío");
         }
         else {
-            store.setDescription(description);
+            if(description.length()>90){
+                throw  new ValidationException("La descripción debe ser de máximo 90 caracteres");
+            }
+            else{
+                store.setDescription(description);
+            }
+
         }
         if ((status == null) || (status.isEmpty())) {
             throw new ValidationException("Error el campo estado está vacío");

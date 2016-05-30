@@ -50,4 +50,9 @@ public class Store
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s (Estado: %s)", name, status);
+    }
 }

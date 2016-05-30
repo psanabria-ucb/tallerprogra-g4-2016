@@ -23,6 +23,7 @@ public class CustomerController
                 TypedQuery<Customer> query = entityManager.createQuery("select c from Customer c WHERE c.Ci =  :a", Customer.class);
                 query.setParameter("a", a);
                 List<Customer> response = query.getResultList();
+                entityManager.close();
                 if (response.isEmpty())
                     customer.setCi(Integer.parseInt(ci));
                 else
