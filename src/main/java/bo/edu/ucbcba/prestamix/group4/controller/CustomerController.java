@@ -100,11 +100,17 @@ public class CustomerController
 
     public void delete(int ci)
     {
-        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.remove(entityManager.find(Customer.class,ci));
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        if(ci!=0) {
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.find(Customer.class, ci));
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        }
+        else
+        {
+            throw new ValidationException("Error");
+        }
     }
 
     public List<Customer> searchCustomerByFirstName(String q) {

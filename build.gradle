@@ -13,4 +13,5 @@ dependencies {
     compile 'org.apache.derby:derby:10.1.1.0'
     compile 'org.eclipse.persistence:eclipselink:2.6.3'
     compile 'com.intellij:forms_rt:7.0.3'
+    testCompile 'junit:junit:4.11'
 }

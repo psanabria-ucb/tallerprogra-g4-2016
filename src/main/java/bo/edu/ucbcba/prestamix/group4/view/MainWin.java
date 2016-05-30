@@ -291,13 +291,27 @@ public class MainWin extends JFrame {
     }
 
 
-    public void deleteCustomer() {
+    public void deleteCustomer()
+    {
         DefaultTableModel tm = (DefaultTableModel) tableCustomers.getModel();
-        int ci = (Integer) tm.getValueAt(tableCustomers.getSelectedRow(), 0);
-        controllerCustomer.delete(ci);
-        comboCustomers.removeAllItems();
-        loadComboCustomers();
-        populateTableCustomers();
+        if (tableCustomers.getSelectedRowCount() > 0)
+        {
+            int ci=(Integer) tm.getValueAt(tableCustomers.getSelectedRow(), 0);
+            controllerCustomer.delete(ci);
+            comboCustomers.removeAllItems();
+            loadComboCustomers();
+            populateTableCustomers();
+        }
+        else
+        {
+            try {
+                controllerCustomer.delete(0);
+            }catch (ValidationException ex)
+            {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "No hay nada seleccionado", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }
 
     public void clearCustomerFields() {
@@ -506,7 +520,6 @@ public class MainWin extends JFrame {
         List<Pawn> pawns = controllerPawn.show();
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
-        model.addColumn("CI CLIENTE");
         model.addColumn("NOMBRE CLIENTE");
         model.addColumn("COD PRENDA");
         model.addColumn("MONTO");
@@ -556,7 +569,6 @@ public class MainWin extends JFrame {
         }
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
-        model.addColumn("CI CLIENTE");
         model.addColumn("NOMBRE CLIENTE");
         model.addColumn("COD PRENDA");
         model.addColumn("MONTO");
