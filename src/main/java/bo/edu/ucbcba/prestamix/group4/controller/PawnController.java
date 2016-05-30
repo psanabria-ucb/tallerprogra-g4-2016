@@ -27,7 +27,6 @@ public class PawnController
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
             String convert = dateFormat.format(d);
             pawn.setDate(convert);
-
         }
         else {
             throw new ValidationException("La fecha debe estar escrita en el formato Mes/Día/Año");
@@ -36,7 +35,10 @@ public class PawnController
         pawn.setNameCustomer(nameCustomer);
         pawn.setCodPledge(codPledge);
         if (amount.matches("[0-9]+"))
-            pawn.setAmount(Integer.parseInt(amount));
+            if(amount.length()>6)
+                throw new ValidationException("El monto no puede ser mayor a 6 digitos");
+            else
+                pawn.setAmount(Integer.parseInt(amount));
         else
             throw new ValidationException("Monto no es un número");
         pawn.setType(type);
@@ -51,9 +53,9 @@ public class PawnController
         entityManager.close();
     }
 
-    public static boolean isDateValid(String date)
+    public boolean isDateValid(String date)
     {
-        String DATE_FORMAT = "MM-dd-yyyy";
+        String DATE_FORMAT = "MM/dd/yyyy";
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
             df.setLenient(false);
@@ -72,6 +74,75 @@ public class PawnController
         entityManager.close();
         return response;
     }
+
+    public List<Pawn> searchPawnsByCustomer(String q)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pawn> query = entityManager.createQuery("select p from Pawn p WHERE lower(p.nameCustomer) like :nameCustomer", Pawn.class);
+        query.setParameter("nameCustomer", "%" + q.toLowerCase() + "%");
+        List<Pawn> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+    public List<Pawn> searchPawnsByPledge(String q)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pawn> query = entityManager.createQuery("select p from Pawn p WHERE lower(p.codPledge) like :codPledge", Pawn.class);
+        query.setParameter("codPledge", "%" + q.toLowerCase() + "%");
+        List<Pawn> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+
+
+    public List<Pawn> searchPawnsByAmount(String q)
+    {
+        int a;
+        if (q.matches("[0-9]+") && (q.length()<7)) {
+            if (q.isEmpty()) {
+                a = 0;
+            } else {
+                a = Integer.parseInt(q);
+            }
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            TypedQuery<Pawn> query = entityManager.createQuery("select p from Pawn p WHERE p.amount =  :a", Pawn.class);
+            query.setParameter("a", a);
+            List<Pawn> response = query.getResultList();
+            entityManager.close();
+            return response;
+        }
+        else {
+            throw new ValidationException("El campo debe ser un número no mayor a 6 dígitos para buscar por ese criterio");
+        }
+    }
+
+
+    public List<Pawn> searchPawnsByType(String q)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pawn> query = entityManager.createQuery("select p from Pawn p WHERE lower(p.type) like :type", Pawn.class);
+        query.setParameter("type", "%" + q.toLowerCase() + "%");
+        List<Pawn> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+    public List<Pawn> searchPawnsByStatus(String q)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pawn> query = entityManager.createQuery("select p from Pawn p WHERE lower(p.status) like :status", Pawn.class);
+        query.setParameter("status", "%" + q.toLowerCase() + "%");
+        List<Pawn> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+
+
+
+
 
     public void delete(int id)
     {

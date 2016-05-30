@@ -17,6 +17,8 @@ public class StoreController
             throw new ValidationException("Error el campo nombre está vacío");
         }
         else {
+            if (name.length()>20)
+                throw new ValidationException("Error el Nombre no debe tener mas de 20 caracteres");
             store.setName(name);
 
         }
