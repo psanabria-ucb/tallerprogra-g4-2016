@@ -7,7 +7,7 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args)
     {
-        MainWin main =new MainWin();
+        MainWin main = new MainWin();
         main.setVisible(true);
         main.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

@@ -1,6 +1,7 @@
 package bo.edu.ucbcba.prestamix.group4.view;
 
 import bo.edu.ucbcba.prestamix.group4.controller.CustomerController;
+import bo.edu.ucbcba.prestamix.group4.exceptions.ValidationException;
 import bo.edu.ucbcba.prestamix.group4.model.Customer;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -22,8 +23,8 @@ public class EditCustomer extends JDialog {
     private JButton okButton;
     private JButton cancelButton;
 
-    public EditCustomer(JFrame owner, int id, Customer c, CustomerController cc) {
-        super(owner, "-EDITAR CLIENTE-");
+    public EditCustomer(JFrame edit, Customer c, CustomerController cc) {
+        super(edit, "-EDITAR CLIENTE-", true);
         setContentPane(rootPanel);
         setSize(300, 300);
 
@@ -32,7 +33,7 @@ public class EditCustomer extends JDialog {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancel();
+                ok(cc);
             }
         });
 
@@ -46,6 +47,7 @@ public class EditCustomer extends JDialog {
 
     public void load(Customer c) {
         ciField.setText(String.valueOf(c.getCi()));
+        ciField.setEditable(false);
         firstNameField.setText(c.getFirtsName());
         lastNamePField.setText(c.getLastNameF());
         lastNameFieldM.setText(c.getLastNameM());
@@ -56,6 +58,17 @@ public class EditCustomer extends JDialog {
     private void cancel() {
         setVisible(false);
         dispose();
+    }
+
+    private void ok(CustomerController cc) {
+        try {
+            cc.update(Integer.valueOf(ciField.getText()), firstNameField.getText(),
+                    lastNamePField.getText(), lastNameFieldM.getText(),
+                    addressArea.getText(), numberPhoneField.getText());
+        } catch (ValidationException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        }
+        cancel();
     }
 
     {

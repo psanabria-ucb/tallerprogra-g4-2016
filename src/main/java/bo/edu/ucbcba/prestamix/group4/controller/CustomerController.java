@@ -170,14 +170,78 @@ public class CustomerController
         return response;
     }
 
+    public Customer getCustomer(int ci)
+    {
+        if(ci!=0)
+        {
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            entityManager.getTransaction().begin();
+            Customer response = entityManager.find(Customer.class,ci);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return response;
+        }
+        else {
+            throw new ValidationException("Error");
+        }
+    }
 
+    public void update(int ci, String firstName, String lastNameF, String lastNameM, String address,
+                       String numberPhone)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        entityManager.getTransaction().begin();
+        Customer customer = entityManager.find(Customer.class, ci);
+        if(firstName.length()>25)
+            throw new ValidationException("El nombre debe ser de máximo 25 caracteres");
+        else {
+            if (firstName.isEmpty() || firstName ==null)
+                throw new ValidationException("El campo nombre está vacío");
+            else
+                customer.setFirtsName(firstName);
+        }
+        if (lastNameF.length()>25 )
+            throw new ValidationException("El Apellido paterno debe ser de máximo 25 caracteres");
+        else {
+            if (lastNameF.isEmpty() || lastNameF ==null){
+                throw new ValidationException("El campo Apellido paterno está vacío");
+            }
+            else
+                customer.setLastNameF(lastNameF);
+        }
+        if (lastNameM.length()>25)
+            throw new ValidationException("El apellido materno debe ser de máximo 25 caracteres");
+        else {
+            if (lastNameM.isEmpty() || lastNameM == null)
+                throw new ValidationException("El campo Apellido materno está vacío");
+            else
+                customer.setLastNameM(lastNameM);
+        }
+        if (address.length()>90) {
+            throw new ValidationException("La dirección debe ser de máximo 90 caracteres");
+        }
+        else {
+            if (address.isEmpty() || address==null)
+                throw new ValidationException("El campo dirección está vacío");
+            else
+                customer.setAddress(address);
+        }
+        if((numberPhone.isEmpty()) || (numberPhone==null))
+            throw new ValidationException("El campo Teléfono está vacío");
+        else{
+            if (numberPhone.matches("[0-9]+")){
+                if (numberPhone.length()>9)
+                    throw new ValidationException("El Teléfono no debe tener mas de 9 dígitos ");
+                else
+                    customer.setNumberPhone(Integer.parseInt(numberPhone));
+            }
+            else
+                throw new ValidationException("El campo Teléfono debe ser un número");
 
+        }
 
+        entityManager.getTransaction().commit();
+        entityManager.close();
 
-
-
-
-
-
-
+    }
 }

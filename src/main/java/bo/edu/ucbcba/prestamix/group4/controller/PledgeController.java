@@ -162,5 +162,76 @@ public class PledgeController
         return response;
     }
 
+    public Pledge getPledge(String cod)
+    {
+        if(cod.equals(" "))
+        {
+            throw new ValidationException("Error");
+        }
+        else {
+
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            entityManager.getTransaction().begin();
+            Pledge response = entityManager.find(Pledge.class,cod);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return response;
+
+        }
+    }
+
+    public void update(String cod, String name, String type, String description, String location)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        entityManager.getTransaction().begin();
+        Pledge pledge = entityManager.find(Pledge.class, cod);
+        if ((name == null) || (name.isEmpty())){
+            throw new ValidationException("Error el campo nombre está vacío");
+        }
+        else
+        {
+            if(name.length()>25)
+            {
+                throw new ValidationException("Error el nombre de la prenda supera los 25 caracteres");
+            }
+            else{
+                pledge.setName(name);
+            }
+        }
+
+        if ((type == null) || (type.isEmpty())){
+            throw new ValidationException("Error el campo tipo está vacío");
+        }
+        else
+        {
+            pledge.setType(type);
+        }
+        if ((description == null) || (description.isEmpty())) {
+            throw new ValidationException("Error el descripción tipo está vacío");
+        }
+        else
+        {
+            if(description.length()>90)
+            {
+                throw  new ValidationException("La descripción debe ser de máximo 90 caracteres");
+            }
+            else
+            {
+                pledge.setDescription(description);
+            }
+        }
+
+        if ((location == null) || (location.isEmpty()) || (location.equals("null")))
+        {
+            throw new ValidationException("Error el ubicación está vacío o no tiene depositos registrados");
+        }
+        else
+        {
+            pledge.setLocation(location);
+        }
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
 
 }
