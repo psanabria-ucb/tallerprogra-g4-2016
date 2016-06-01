@@ -14,7 +14,7 @@ public class CustomerTest {
 
     @Before
     public void setUp() {
-        customer= new Customer();
+        customer = new Customer();
     }
 
     @Test
@@ -23,12 +23,39 @@ public class CustomerTest {
         assertEquals(9411020, customer.getCi());
     }
 
+
     @Test
-    public void testSetFirstName()
-    {
+    public void testSetFirstName() {
         customer.setFirtsName("Sega");
         assertEquals("Sega", customer.getFirtsName());
 
     }
+
+    @Test
+
+    public void testSetLastNameF() {
+        customer.setLastNameF("Genesis");
+        assertEquals("Genesis",customer.getLastNameF());
+    }
+
+    @Test
+    public void testSetLastNameM() {
+        customer.setLastNameM("Fuentes");
+        assertEquals("Fuentes",customer.getLastNameM());
+    }
+
+    @Test
+    public void testSetAddress() {
+        customer.setAddress("Av. America/ Av Santa Cruz #123");
+        assertEquals("Av. America/ Av Santa Cruz #123", customer.getAddress());
+    }
+
+    @Test
+    public void testSetNumberPhone () {
+        customer.setNumberPhone(4450627);
+        assertEquals(4450627,customer.getNumberPhone());
+    }
+
+
 
 }
