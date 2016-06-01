@@ -72,4 +72,59 @@ public class StoreController
             throw new ValidationException("Error");
         }
     }
+
+    public Store getStore(int id)
+    {
+        if(id!=0)
+        {
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            entityManager.getTransaction().begin();
+            Store response = entityManager.find(Store.class,id);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return response;
+        }
+        else {
+            throw new ValidationException("Seleccione el depósito que desea editar");
+        }
+    }
+
+    public void update(int id, String name, String description, String status)
+    {
+
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        entityManager.getTransaction().begin();
+        Store store = entityManager.find(Store.class, id);
+
+        if ((name == null) || (name.isEmpty())) {
+            throw new ValidationException("Error el campo nombre está vacío");
+        }
+        else {
+            if (name.length()>20)
+                throw new ValidationException("Error el Nombre no debe tener mas de 20 caracteres");
+            store.setName(name);
+
+        }
+        if ((description == null) || (description.isEmpty())) {
+            throw new ValidationException("Error el campo descripción está vacío");
+        }
+        else {
+            if(description.length()>90){
+                throw  new ValidationException("La descripción debe ser de máximo 90 caracteres");
+            }
+            else{
+                store.setDescription(description);
+            }
+
+        }
+        if ((status == null) || (status.isEmpty())) {
+            throw new ValidationException("Error el campo estado está vacío");
+        }
+        else {
+            store.setStatus(status);
+        }
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }

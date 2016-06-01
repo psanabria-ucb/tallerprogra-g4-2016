@@ -65,7 +65,6 @@ public class MainWin extends JFrame {
     private JPanel storesPanel;
     private JTextField nameStoreField;
     private JTextArea descriptionStoreArea;
-    private JTextField statusStoreField;
     private JButton addStoreButton;
     private JTable tableStores;
     private JButton deleteStoreButton;
@@ -92,6 +91,11 @@ public class MainWin extends JFrame {
     private JRadioButton PawnFechaRadioButton;
 
     private JButton refreshAllButton;
+    private JButton editPawnButton;
+    private JButton filePawnButton;
+    private JComboBox comboStatusStore;
+    private JButton editStoreButton;
+    private JButton viewFilesButton;
 
     //CONTROLLERS
     private final CustomerController controllerCustomer;
@@ -115,6 +119,7 @@ public class MainWin extends JFrame {
         loadComboPledges();
         loadComboStatus();
         loadComboType();
+        loadComboStatusStore();
 
         populateTableCustomers();
         populateTablePawns();
@@ -191,7 +196,12 @@ public class MainWin extends JFrame {
             }
         });
 
-
+        editStoreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editStore();
+            }
+        });
         deleteStoreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -199,6 +209,7 @@ public class MainWin extends JFrame {
                 populateTableStores();
             }
         });
+
         addPawnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -207,7 +218,6 @@ public class MainWin extends JFrame {
             }
         });
 
-
         deletePawnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -215,10 +225,31 @@ public class MainWin extends JFrame {
             }
         });
 
+        editPawnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editPawn();
+            }
+        });
+
+        filePawnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filePawn();
+            }
+        });
+
         searchPawnsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 populateSearchingTablePawns();
+            }
+        });
+
+        viewFilesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewFiles();
             }
         });
 
@@ -474,7 +505,7 @@ public class MainWin extends JFrame {
     public void addStore() {
         try {
             controllerStore.create(nameStoreField.getText(), descriptionStoreArea.getText(),
-                    statusStoreField.getText());
+                    String.valueOf(comboStatusStore.getSelectedItem()));
             comboLocation.removeAllItems();
             loadComboLocation();
             populateTableStores();
@@ -520,10 +551,25 @@ public class MainWin extends JFrame {
         }
     }
 
+    public void editStore() {
+        DefaultTableModel tm = (DefaultTableModel) tableStores.getModel();
+        if (tableStores.getSelectedRowCount() > 0) {
+            int id = (Integer) tm.getValueAt(tableStores.getSelectedRow(), 0);
+            EditStore form = new EditStore(this, controllerStore.getStore(id), controllerStore);
+            form.setVisible(true);
+        } else {
+            try {
+                controllerStore.getStore(0);
+
+            } catch (ValidationException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     public void clearStoreFields() {
         nameStoreField.setText("");
         descriptionStoreArea.setText("");
-        statusStoreField.setText("");
     }
 
     public void loadComboTypesPledges() {
@@ -565,6 +611,12 @@ public class MainWin extends JFrame {
     public void loadComboType() {
         comboType.addItem("Bs.");
         comboType.addItem("$us.");
+    }
+
+    public void loadComboStatusStore() {
+        comboStatusStore.addItem("Vacio");
+        comboStatusStore.addItem("Optimo");
+        comboStatusStore.addItem("Lleno");
     }
 
     public void addPawn() {
@@ -673,6 +725,40 @@ public class MainWin extends JFrame {
         }
     }
 
+    public void editPawn() {
+        DefaultTableModel tm = (DefaultTableModel) tablePawns.getModel();
+        if (tablePawns.getSelectedRowCount() > 0) {
+            int id = (Integer) tm.getValueAt(tablePawns.getSelectedRow(), 0);
+            EditPawn form = new EditPawn(this, controllerPawn.getPawn(id), controllerPawn);
+            form.setVisible(true);
+        } else {
+            try {
+                controllerPawn.getPawn(0);
+
+            } catch (ValidationException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void filePawn() {
+        DefaultTableModel tm = (DefaultTableModel) tablePawns.getModel();
+        if (tablePawns.getSelectedRowCount() > 0) {
+            int id = (Integer) tm.getValueAt(tablePawns.getSelectedRow(), 0);
+            FilePawn form = new FilePawn(this, controllerPawn.getPawn(id));
+            form.setVisible(true);
+            controllerPawn.delete(id);
+        } else {
+            try {
+                controllerPawn.getPawn(0);
+
+            } catch (ValidationException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }
+
     public void clearPawnFields() {
 
         amountField.setText("");
@@ -685,12 +771,21 @@ public class MainWin extends JFrame {
 
         comboCustomers.removeAllItems();
         comboPledges.removeAllItems();
+        comboStatusStore.removeAllItems();
+        comboLocation.removeAllItems();
         loadComboCustomers();
         loadComboPledges();
+        loadComboStatusStore();
+        loadComboLocation();
         populateTableCustomers();
         populateTablePledges();
         populateTablePawns();
         populateTableStores();
+    }
+
+    public void viewFiles() {
+        FilePawn form = new FilePawn(this, null);
+        form.setVisible(true);
     }
 
     {
@@ -709,7 +804,7 @@ public class MainWin extends JFrame {
      */
     private void $$$setupUI$$$() {
         rootPanel = new JPanel();
-        rootPanel.setLayout(new GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));
+        rootPanel.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedMain = new JTabbedPane();
         rootPanel.add(tabbedMain, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
         customersPanel = new JPanel();
@@ -834,7 +929,7 @@ public class MainWin extends JFrame {
         editPledgeButton.setText("Editar");
         pledgesPanel.add(editPledgeButton, new GridConstraints(7, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         pawnsPanel = new JPanel();
-        pawnsPanel.setLayout(new GridLayoutManager(10, 6, new Insets(0, 0, 0, 0), -1, -1));
+        pawnsPanel.setLayout(new GridLayoutManager(12, 6, new Insets(0, 0, 0, 0), -1, -1));
         tabbedMain.addTab("Empeños", pawnsPanel);
         final JLabel label12 = new JLabel();
         label12.setText("Cliente:");
@@ -876,30 +971,36 @@ public class MainWin extends JFrame {
         pawnsPanel.add(deletePawnButton, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchPawnsButton = new JButton();
         searchPawnsButton.setText("Buscar");
-        pawnsPanel.add(searchPawnsButton, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pawnsPanel.add(searchPawnsButton, new GridConstraints(10, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchPawnsTextField = new JTextField();
-        pawnsPanel.add(searchPawnsTextField, new GridConstraints(8, 1, 1, 5, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        pawnsPanel.add(searchPawnsTextField, new GridConstraints(10, 1, 1, 5, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         PawnNameClientRadioButton = new JRadioButton();
         PawnNameClientRadioButton.setSelected(true);
         PawnNameClientRadioButton.setText("Nombre de cliente");
-        pawnsPanel.add(PawnNameClientRadioButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pawnsPanel.add(PawnNameClientRadioButton, new GridConstraints(11, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         PawnPrendaRadioButton = new JRadioButton();
         PawnPrendaRadioButton.setText("Prenda");
-        pawnsPanel.add(PawnPrendaRadioButton, new GridConstraints(9, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pawnsPanel.add(PawnPrendaRadioButton, new GridConstraints(11, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         PawnAmountRadioButton = new JRadioButton();
         PawnAmountRadioButton.setText("Monto");
-        pawnsPanel.add(PawnAmountRadioButton, new GridConstraints(9, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pawnsPanel.add(PawnAmountRadioButton, new GridConstraints(11, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         PawnTipoDeMonedaRadioButton = new JRadioButton();
         PawnTipoDeMonedaRadioButton.setText("Tipo de Moneda");
-        pawnsPanel.add(PawnTipoDeMonedaRadioButton, new GridConstraints(9, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pawnsPanel.add(PawnTipoDeMonedaRadioButton, new GridConstraints(11, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         PawnEstadoRadioButton = new JRadioButton();
         PawnEstadoRadioButton.setText("Estado");
-        pawnsPanel.add(PawnEstadoRadioButton, new GridConstraints(9, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pawnsPanel.add(PawnEstadoRadioButton, new GridConstraints(11, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         PawnFechaRadioButton = new JRadioButton();
         PawnFechaRadioButton.setText("Fecha");
-        pawnsPanel.add(PawnFechaRadioButton, new GridConstraints(9, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pawnsPanel.add(PawnFechaRadioButton, new GridConstraints(11, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        editPawnButton = new JButton();
+        editPawnButton.setText("Editar");
+        pawnsPanel.add(editPawnButton, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        filePawnButton = new JButton();
+        filePawnButton.setText("Archivar");
+        pawnsPanel.add(filePawnButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         storesPanel = new JPanel();
-        storesPanel.setLayout(new GridLayoutManager(5, 2, new Insets(0, 0, 0, 0), -1, -1));
+        storesPanel.setLayout(new GridLayoutManager(6, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedMain.addTab("Depósitos", storesPanel);
         final JLabel label18 = new JLabel();
         label18.setText("Nombre:");
@@ -915,8 +1016,6 @@ public class MainWin extends JFrame {
         descriptionStoreArea = new JTextArea();
         descriptionStoreArea.setLineWrap(true);
         storesPanel.add(descriptionStoreArea, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        statusStoreField = new JTextField();
-        storesPanel.add(statusStoreField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         addStoreButton = new JButton();
         addStoreButton.setText("Agregar");
         storesPanel.add(addStoreButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -925,9 +1024,17 @@ public class MainWin extends JFrame {
         deleteStoreButton = new JButton();
         deleteStoreButton.setText("Eliminar");
         storesPanel.add(deleteStoreButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        comboStatusStore = new JComboBox();
+        storesPanel.add(comboStatusStore, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        editStoreButton = new JButton();
+        editStoreButton.setText("Editar");
+        storesPanel.add(editStoreButton, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         refreshAllButton = new JButton();
         refreshAllButton.setText("Actualizar");
-        rootPanel.add(refreshAllButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        rootPanel.add(refreshAllButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        viewFilesButton = new JButton();
+        viewFilesButton.setText("Ver Archivados");
+        rootPanel.add(viewFilesButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         ButtonGroup buttonGroup;
         buttonGroup = new ButtonGroup();
         buttonGroup.add(searchFirstNameRadioButton);

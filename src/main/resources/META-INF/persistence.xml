@@ -7,6 +7,7 @@
         <class>bo.edu.ucbcba.prestamix.group4.model.Pledge</class>
         <class>bo.edu.ucbcba.prestamix.group4.model.Store</class>
         <class>bo.edu.ucbcba.prestamix.group4.model.Pawn</class>
+        <class>bo.edu.ucbcba.prestamix.group4.model.File</class>
         <properties>
             <property name="eclipselink.jdbc.url" value="jdbc:derby:Prestamix;create=true"/>
             <property name="eclipselink.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>

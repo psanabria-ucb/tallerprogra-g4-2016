@@ -170,5 +170,54 @@ public class PawnController
         }
     }
 
+    public Pawn getPawn(int id)
+    {
+        if(id!=0)
+        {
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            entityManager.getTransaction().begin();
+            Pawn response = entityManager.find(Pawn.class,id);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return response;
+        }
+        else {
+        throw new ValidationException("Seleccione el empeño que desea editar");
+        }
+    }
+
+    public void update(int id, String nameCustomer, String codPledge,
+                       String amount, String type, String date, String status)
+    {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        entityManager.getTransaction().begin();
+        Pawn pawn = entityManager.find(Pawn.class, id);
+        if (isDateValid(date))
+        {
+            Date d = new Date(date);
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            String convert = dateFormat.format(d);
+            pawn.setDate(convert);
+        }
+        else {
+            throw new ValidationException("La fecha debe estar escrita en el formato Mes/Día/Año, corrija el dato para continuar");
+        }
+
+        if (amount.matches("[0-9]+"))
+            if(amount.length()>6)
+                throw new ValidationException("El monto no puede ser mayor a 6 digitos, corrija el dato para continuar");
+            else
+                pawn.setAmount(Integer.parseInt(amount));
+        else
+            throw new ValidationException("Monto no es un número, corrija el dato para continuar");
+        pawn.setType(type);
+        pawn.setStatus(status);
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+
+    }
+
 
 }

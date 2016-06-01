@@ -24,7 +24,7 @@ public class Customer
 
     private int numberPhone;
 
-    private List<Pawn> pawns;
+    //private List<Pawn> pawns;
 
     public int getCi() {
         return Ci;
@@ -74,13 +74,13 @@ public class Customer
         this.numberPhone = numberPhone;
     }
 
-   public List<Pawn> getPawns() {
+   /*public List<Pawn> getPawns() {
         return pawns;
     }
 
     public void setPawns(List<Pawn> pawns) {
         this.pawns = pawns;
-    }
+    }*/
 
     @Override
     public String toString() {

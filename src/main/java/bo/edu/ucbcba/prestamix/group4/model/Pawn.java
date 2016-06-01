@@ -17,7 +17,6 @@ public class Pawn
 
     private int amount;
 
-    @Column(length = 10)
     private String type;
 
     private String date;
