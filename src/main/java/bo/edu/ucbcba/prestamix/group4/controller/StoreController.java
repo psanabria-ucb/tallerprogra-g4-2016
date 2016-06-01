@@ -57,6 +57,58 @@ public class StoreController
         return response;
     }
 
+    public List<Store> searchStoresByName(String q){
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Store> query = entityManager.createQuery("select s from Store s WHERE lower(s.name) like :name", Store.class);
+        query.setParameter("name", "%" + q.toLowerCase() + "%");
+        List<Store> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+    public List<Store> searchStoresByDescription(String q){
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Store> query = entityManager.createQuery("select s from Store s WHERE lower(s.description) like :description", Store.class);
+        query.setParameter("description", "%" + q.toLowerCase() + "%");
+        List<Store> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+    public List<Store> searchStoresByState(String q){
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Store> query = entityManager.createQuery("select s from Store s WHERE lower(s.status) like :status", Store.class);
+        query.setParameter("status", "%" + q.toLowerCase() + "%");
+        List<Store> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+
+    public List<Store> searchStoresById(String q)
+    {
+        int a;
+        if (q.matches("[0-9]+") && (q.length()<7)) {
+            if (q.isEmpty()) {
+                a = 0;
+            } else {
+                a = Integer.parseInt(q);
+            }
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            TypedQuery<Store> query = entityManager.createQuery("select s from Store s WHERE s.id =  :a", Store.class);
+            query.setParameter("a", a);
+            List<Store> response = query.getResultList();
+            entityManager.close();
+            return response;
+        }
+        else {
+            throw new ValidationException("El campo debe ser un número para buscar por ese criterio, corrija el dato para continuar");
+        }
+    }
+
+
+
+
     public void delete(int id)
     {
         if(id!=0)

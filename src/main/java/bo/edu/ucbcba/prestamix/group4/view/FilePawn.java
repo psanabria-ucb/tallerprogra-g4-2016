@@ -190,6 +190,7 @@ public class FilePawn extends JDialog {
         buttonGroup.add(montoRadioButton);
         buttonGroup.add(tipoRadioButton);
         buttonGroup.add(fechaRadioButton);
+        buttonGroup.add(estadoRadioButton);
     }
 
     /**
