@@ -16,7 +16,7 @@ public class CustomerController
         Customer customer = new Customer();
         if (ci.matches("[0-9]+")) {
             if (ci.length()>9)
-                throw new ValidationException("El ci no debe tener mas de 9 digitos");
+                throw new ValidationException("El campo CI debe contener un número menor a 9 digitos, corrija el dato para continuar");
             else {
                 int a = Integer.parseInt(ci);
                 EntityManager entityManager = PrestamixEntityManager.createEntityManager();
@@ -26,57 +26,58 @@ public class CustomerController
                 entityManager.close();
                 if (response.isEmpty())
                     customer.setCi(Integer.parseInt(ci));
-                else
-                    throw new ValidationException("El Ci ya existe");
+                else {
+                    throw new ValidationException("El CI ya fue registrado anteriormente, revise si el cliente ya existe");
+                }
             }
         }
         else
-            throw new ValidationException("CI no es un número");
+            throw new ValidationException("El campo CI debe contener un número, complete el formulario para continuar");
         if(firstName.length()>25)
-            throw new ValidationException("El nombre debe ser de máximo 25 caracteres");
+            throw new ValidationException("El campo Nombre debe contener máximo 25 caracteres");
         else {
             if (firstName.isEmpty() || firstName ==null)
-                throw new ValidationException("El campo nombre está vacío");
+                throw new ValidationException("El campo Nombre está vacío, complete el formulario para continuar");
             else
                 customer.setFirtsName(firstName);
         }
         if (lastNameF.length()>25 )
-            throw new ValidationException("El Apellido paterno debe ser de máximo 25 caracteres");
+            throw new ValidationException("El campo Apellido Paterno debe contener máximo 25 caracteres");
         else {
             if (lastNameF.isEmpty() || lastNameF ==null){
-                throw new ValidationException("El campo Apellido paterno está vacío");
+                throw new ValidationException("El campo Apellido Paterno está vacío, complete el formulario para continuar");
             }
             else
                 customer.setLastNameF(lastNameF);
         }
         if (lastNameM.length()>25)
-            throw new ValidationException("El apellido materno debe ser de máximo 25 caracteres");
+            throw new ValidationException("El campo apellido Materno debe contener máximo 25 caracteres");
         else {
             if (lastNameM.isEmpty() || lastNameM == null)
-                throw new ValidationException("El campo Apellido materno está vacío");
+                throw new ValidationException("El campo Apellido Materno está vacío, complete el formulario para continuar");
             else
                 customer.setLastNameM(lastNameM);
         }
         if (address.length()>90) {
-            throw new ValidationException("La dirección debe ser de máximo 90 caracteres");
+            throw new ValidationException("El campo Dirección debe contener máximo 90 caracteres");
         }
         else {
             if (address.isEmpty() || address==null)
-                throw new ValidationException("El campo dirección está vacío");
+                throw new ValidationException("El campo Dirección está vacío, complete el formulario para continuar");
             else
             customer.setAddress(address);
         }
         if((numberPhone.isEmpty()) || (numberPhone==null))
-            throw new ValidationException("El campo Teléfono está vacío");
+            throw new ValidationException("El campo Teléfono está vacío, complete el formulario para continuar");
         else{
             if (numberPhone.matches("[0-9]+")){
                 if (numberPhone.length()>9)
-                    throw new ValidationException("El Teléfono no debe tener mas de 9 dígitos ");
+                    throw new ValidationException("El campo Teléfono no debe contener mas de 9 dígitos, corrija el dato para continuar ");
                 else
                     customer.setNumberPhone(Integer.parseInt(numberPhone));
             }
             else
-                throw new ValidationException("El campo Teléfono debe ser un número");
+                throw new ValidationException("El campo Teléfono debe contener un número, corrija el dato para continuar");
 
         }
 
@@ -109,7 +110,7 @@ public class CustomerController
         }
         else
         {
-            throw new ValidationException("Error");
+            throw new ValidationException("Seleccione el cliente que desea eliminar");
         }
     }
 
@@ -182,7 +183,7 @@ public class CustomerController
             return response;
         }
         else {
-            throw new ValidationException("Error");
+            throw new ValidationException("Seleccione el cliente que desea editar");
         }
     }
 
@@ -193,50 +194,50 @@ public class CustomerController
         entityManager.getTransaction().begin();
         Customer customer = entityManager.find(Customer.class, ci);
         if(firstName.length()>25)
-            throw new ValidationException("El nombre debe ser de máximo 25 caracteres");
+            throw new ValidationException("El campo Nombre debe contener máximo 25 caracteres, corrija el dato para continuar");
         else {
             if (firstName.isEmpty() || firstName ==null)
-                throw new ValidationException("El campo nombre está vacío");
+                throw new ValidationException("El campo Nombre está vacío, complete el formulario para continuar");
             else
                 customer.setFirtsName(firstName);
         }
         if (lastNameF.length()>25 )
-            throw new ValidationException("El Apellido paterno debe ser de máximo 25 caracteres");
+            throw new ValidationException("El Apellido Paterno debe contener máximo 25 caracteres, corrija el dato para continuar");
         else {
             if (lastNameF.isEmpty() || lastNameF ==null){
-                throw new ValidationException("El campo Apellido paterno está vacío");
+                throw new ValidationException("El campo Apellido Paterno está vacío, complete el formulario para continuar");
             }
             else
                 customer.setLastNameF(lastNameF);
         }
         if (lastNameM.length()>25)
-            throw new ValidationException("El apellido materno debe ser de máximo 25 caracteres");
+            throw new ValidationException("El Apellido Materno debe ser de máximo 25 caracteres, corrija el dato para continuar");
         else {
             if (lastNameM.isEmpty() || lastNameM == null)
-                throw new ValidationException("El campo Apellido materno está vacío");
+                throw new ValidationException("El campo Apellido Materno está vacío, complete el formulario para continuar");
             else
                 customer.setLastNameM(lastNameM);
         }
         if (address.length()>90) {
-            throw new ValidationException("La dirección debe ser de máximo 90 caracteres");
+            throw new ValidationException("El campo Dirección debe contener máximo 90 caracteres, corrija el dato para continuar");
         }
         else {
             if (address.isEmpty() || address==null)
-                throw new ValidationException("El campo dirección está vacío");
+                throw new ValidationException("El campo Dirección está vacío, complete el formulario para continuar");
             else
                 customer.setAddress(address);
         }
         if((numberPhone.isEmpty()) || (numberPhone==null))
-            throw new ValidationException("El campo Teléfono está vacío");
+            throw new ValidationException("El campo Teléfono está vacío, complete el formulario para continuar");
         else{
             if (numberPhone.matches("[0-9]+")){
                 if (numberPhone.length()>9)
-                    throw new ValidationException("El Teléfono no debe tener mas de 9 dígitos ");
+                    throw new ValidationException("El Teléfono no debe tener mas de 9 dígitos, corrija el dato para continuar ");
                 else
                     customer.setNumberPhone(Integer.parseInt(numberPhone));
             }
             else
-                throw new ValidationException("El campo Teléfono debe ser un número");
+                throw new ValidationException("El campo Teléfono debe ser un número, corrija el dato para continuar");
 
         }
 

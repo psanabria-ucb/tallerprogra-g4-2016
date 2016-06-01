@@ -15,36 +15,36 @@ public class PledgeController
 
         Pledge pledge = new Pledge();
         if ((cod == null) || (cod.isEmpty())) {
-            throw new ValidationException("Error el campo código está vacío");
+            throw new ValidationException("El campo Código está vacío, complete el formulario para continuar");
         }
         else
         {
             if(cod.length()>20)
             {
-                throw new ValidationException("Error el código supera los 20 caracteres");
+                throw new ValidationException("El campo código supera los 20 caracteres, corrija el dato para continuar");
             }
             else
             {
-                List<Pledge> response = searchPledgeByCode(cod);
+                List<Pledge> response = searchPledgeByExactCode(cod);
                 if(response.isEmpty())
                 {
                     pledge.setCod(cod);
                 }
                 else
                 {
-                    throw new ValidationException("Error el código de la prenda ya existe");
+                    throw new ValidationException("El código de la prenda ya existe, verifique si la prenda ya fue creada");
                 }
             }
         }
 
         if ((name == null) || (name.isEmpty())){
-            throw new ValidationException("Error el campo nombre está vacío");
+            throw new ValidationException("El campo Nombre de la Prenda está vacío, complete el formulario para continuar");
         }
         else
         {
             if(name.length()>25)
             {
-                throw new ValidationException("Error el nombre de la prenda supera los 25 caracteres");
+                throw new ValidationException("El campo Nombre de la Prenda supera los 25 caracteres, corrija el dato para continuar");
             }
             else{
                 pledge.setName(name);
@@ -52,20 +52,20 @@ public class PledgeController
         }
 
         if ((type == null) || (type.isEmpty())){
-            throw new ValidationException("Error el campo tipo está vacío");
+            throw new ValidationException("El campo Tipo está vacío, complete el campo para continuar");
         }
         else
         {
             pledge.setType(type);
         }
         if ((description == null) || (description.isEmpty())) {
-            throw new ValidationException("Error el descripción tipo está vacío");
+            throw new ValidationException("El campo Descripción está vacío, complete el formulario para continuar");
         }
         else
         {
             if(description.length()>90)
             {
-                throw  new ValidationException("La descripción debe ser de máximo 90 caracteres");
+                throw  new ValidationException("El campo Descripción debe contener máximo 90 caracteres, corrija el dato para continuar");
             }
             else
             {
@@ -75,7 +75,7 @@ public class PledgeController
 
         if ((location == null) || (location.isEmpty()) || (location.equals("null")))
         {
-            throw new ValidationException("Error el ubicación está vacío o no tiene depositos registrados");
+            throw new ValidationException("El campo Ubicación está vacío, escoja una ubicación.(Debe tener al menos un deposito registrado, de no ser asi registre uno para continuar)");
         }
         else
         {
@@ -102,7 +102,7 @@ public class PledgeController
     {
         if(cod.equals(" "))
         {
-           throw new ValidationException("Error");
+           throw new ValidationException("Seleccione la prenda para continuar");
         }
         else
         {
@@ -143,6 +143,17 @@ public class PledgeController
         return response;
     }
 
+
+    public List<Pledge> searchPledgeByExactCode(String q) {
+        EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+        TypedQuery<Pledge> query = entityManager.createQuery("select p from Pledge p WHERE lower(p.cod) like :cod", Pledge.class);
+        query.setParameter("cod", q.toLowerCase());
+        List<Pledge> response = query.getResultList();
+        entityManager.close();
+        return response;
+    }
+
+
     public List<Pledge> searchPledgeByLocation(String q)
     {
         EntityManager entityManager = PrestamixEntityManager.createEntityManager();
@@ -166,7 +177,7 @@ public class PledgeController
     {
         if(cod.equals(" "))
         {
-            throw new ValidationException("Error");
+            throw new ValidationException("Seleccione la prenda que desea editar");
         }
         else {
 
@@ -186,13 +197,13 @@ public class PledgeController
         entityManager.getTransaction().begin();
         Pledge pledge = entityManager.find(Pledge.class, cod);
         if ((name == null) || (name.isEmpty())){
-            throw new ValidationException("Error el campo nombre está vacío");
+            throw new ValidationException("El campo Nombre de la Prenda está vacío, complete el formulario para continuar");
         }
         else
         {
             if(name.length()>25)
             {
-                throw new ValidationException("Error el nombre de la prenda supera los 25 caracteres");
+                throw new ValidationException("El campo Nombre de la Prenda debe contener máximo 25 caracteres, corrija el dato para continuar");
             }
             else{
                 pledge.setName(name);
@@ -200,20 +211,20 @@ public class PledgeController
         }
 
         if ((type == null) || (type.isEmpty())){
-            throw new ValidationException("Error el campo tipo está vacío");
+            throw new ValidationException("El campo Tipo está vacío, complete el formulario para continuar");
         }
         else
         {
             pledge.setType(type);
         }
         if ((description == null) || (description.isEmpty())) {
-            throw new ValidationException("Error el descripción tipo está vacío");
+            throw new ValidationException("El campo Descripción tipo está vacío, complete el formulario para continuar");
         }
         else
         {
             if(description.length()>90)
             {
-                throw  new ValidationException("La descripción debe ser de máximo 90 caracteres");
+                throw  new ValidationException("El campo Descripción debe contener máximo 90 caracteres, corrija el dato para continuar");
             }
             else
             {
@@ -223,7 +234,7 @@ public class PledgeController
 
         if ((location == null) || (location.isEmpty()) || (location.equals("null")))
         {
-            throw new ValidationException("Error el ubicación está vacío o no tiene depositos registrados");
+            throw new ValidationException("El campo Ubicación está vacío o no tiene depositos registrados, corrija el dato para continuar");
         }
         else
         {

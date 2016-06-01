@@ -322,7 +322,7 @@ public class MainWin extends JFrame {
             try {
                 controllerCustomer.delete(0);
             } catch (ValidationException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "No hay nada seleccionado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -339,7 +339,7 @@ public class MainWin extends JFrame {
                 controllerCustomer.getCustomer(0);
 
             } catch (ValidationException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "No selecciono ningun elemento", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -442,7 +442,7 @@ public class MainWin extends JFrame {
                 controllerPledge.delete(" ");
 
             } catch (ValidationException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "No selecciono ningun elemento", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -459,7 +459,7 @@ public class MainWin extends JFrame {
                 controllerPledge.getPledge(" ");
 
             } catch (ValidationException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "No selecciono ningun elemento", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -515,7 +515,7 @@ public class MainWin extends JFrame {
             try {
                 controllerStore.delete(0);
             } catch (ValidationException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "No selecciono ningun elemento", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -668,7 +668,7 @@ public class MainWin extends JFrame {
             try {
                 controllerPawn.delete(0);
             } catch (ValidationException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "No se selecciono ningun elemento", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

@@ -29,18 +29,18 @@ public class PawnController
             pawn.setDate(convert);
         }
         else {
-            throw new ValidationException("La fecha debe estar escrita en el formato Mes/Día/Año");
+            throw new ValidationException("La fecha debe estar escrita en el formato Mes/Día/Año, corrija el dato para continuar");
         }
 
         pawn.setNameCustomer(nameCustomer);
         pawn.setCodPledge(codPledge);
         if (amount.matches("[0-9]+"))
             if(amount.length()>6)
-                throw new ValidationException("El monto no puede ser mayor a 6 digitos");
+                throw new ValidationException("El monto no puede ser mayor a 6 digitos, corrija el dato para continuar");
             else
                 pawn.setAmount(Integer.parseInt(amount));
         else
-            throw new ValidationException("Monto no es un número");
+            throw new ValidationException("Monto no es un número, corrija el dato para continuar");
         pawn.setType(type);
 
         pawn.setStatus(status);
@@ -114,7 +114,7 @@ public class PawnController
             return response;
         }
         else {
-            throw new ValidationException("El campo debe ser un número no mayor a 6 dígitos para buscar por ese criterio");
+            throw new ValidationException("El campo debe ser un número no mayor a 6 dígitos para buscar por ese criterio, corrija el dato para continuar");
         }
     }
 
@@ -166,7 +166,7 @@ public class PawnController
         }
         else
         {
-            throw new ValidationException("Error");
+            throw new ValidationException("Seleccione el empeño que desea eliminar");
         }
     }
 
