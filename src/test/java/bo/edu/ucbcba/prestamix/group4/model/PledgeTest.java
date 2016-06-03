@@ -1,3 +1,5 @@
+package bo.edu.ucbcba.prestamix.group4.model;
+
 import bo.edu.ucbcba.prestamix.group4.model.Pledge;
 import org.junit.Before;
 import org.junit.Rule;
