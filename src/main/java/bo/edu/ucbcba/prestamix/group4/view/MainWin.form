@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="695" height="503"/>
+      <xy x="20" y="20" width="739" height="503"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -311,15 +311,6 @@
                   <text value="Código"/>
                 </properties>
               </component>
-              <component id="c2e7a" class="javax.swing.JRadioButton" binding="searchPledgeByNameRadioButton">
-                <constraints>
-                  <grid row="9" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <selected value="true"/>
-                  <text value="Nombre"/>
-                </properties>
-              </component>
               <component id="b9e70" class="javax.swing.JRadioButton" binding="searchPledgeTypeRadioButton">
                 <constraints>
                   <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -330,7 +321,7 @@
               </component>
               <component id="2a791" class="javax.swing.JComboBox" binding="comboTypePledge">
                 <constraints>
-                  <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
               </component>
@@ -397,9 +388,18 @@
               </component>
               <component id="f165f" class="javax.swing.JComboBox" binding="comboLocation">
                 <constraints>
-                  <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
+              </component>
+              <component id="c2e7a" class="javax.swing.JRadioButton" binding="searchPledgeByNameRadioButton">
+                <constraints>
+                  <grid row="9" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <selected value="true"/>
+                  <text value="Nombre"/>
+                </properties>
               </component>
             </children>
           </grid>
@@ -611,7 +611,7 @@
               </scrollpane>
             </children>
           </grid>
-          <grid id="797f8" binding="storesPanel" layout-manager="GridLayoutManager" row-count="8" column-count="15" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="797f8" binding="storesPanel" layout-manager="GridLayoutManager" row-count="8" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Depósitos"/>
@@ -645,7 +645,7 @@
               </component>
               <component id="ae0c6" class="javax.swing.JTextField" binding="nameStoreField">
                 <constraints>
-                  <grid row="0" column="2" row-span="1" col-span="13" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="0" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -653,13 +653,13 @@
               </component>
               <component id="7e581" class="javax.swing.JComboBox" binding="comboStatusStore">
                 <constraints>
-                  <grid row="2" column="2" row-span="1" col-span="13" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
               </component>
               <component id="7ef67" class="javax.swing.JButton" binding="searchStoreButton">
                 <constraints>
-                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Buscar"/>
@@ -667,7 +667,7 @@
               </component>
               <component id="a98db" class="javax.swing.JTextField" binding="searchStoreTextField">
                 <constraints>
-                  <grid row="6" column="1" row-span="1" col-span="14" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="6" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -675,7 +675,7 @@
               </component>
               <component id="40455" class="javax.swing.JTextField" binding="descriptionStoreTextField">
                 <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="13" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="1" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -699,7 +699,7 @@
               </component>
               <scrollpane id="8154f">
                 <constraints>
-                  <grid row="3" column="2" row-span="3" col-span="13" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="2" row-span="3" col-span="5" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -718,17 +718,9 @@
                   <text value="Editar"/>
                 </properties>
               </component>
-              <component id="9f387" class="javax.swing.JRadioButton" binding="searchStoreIdRadioButton">
-                <constraints>
-                  <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Id"/>
-                </properties>
-              </component>
               <component id="3fd3e" class="javax.swing.JRadioButton" binding="searchStoreNameRadioButton">
                 <constraints>
-                  <grid row="7" column="6" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <selected value="true"/>
@@ -737,7 +729,7 @@
               </component>
               <component id="8944e" class="javax.swing.JRadioButton" binding="searchStoreDescriptionRadioButton">
                 <constraints>
-                  <grid row="7" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Descripción"/>
@@ -745,10 +737,18 @@
               </component>
               <component id="f3ae" class="javax.swing.JRadioButton" binding="searchStoreStatusRadioButton">
                 <constraints>
-                  <grid row="7" column="11" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="7" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Estado"/>
+                </properties>
+              </component>
+              <component id="9f387" class="javax.swing.JRadioButton" binding="searchStoreIdRadioButton">
+                <constraints>
+                  <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Id"/>
                 </properties>
               </component>
             </children>
