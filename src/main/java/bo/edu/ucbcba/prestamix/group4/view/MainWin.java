@@ -11,7 +11,6 @@ import bo.edu.ucbcba.prestamix.group4.model.Pledge;
 import bo.edu.ucbcba.prestamix.group4.model.Store;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +29,7 @@ public class MainWin extends JFrame {
     private JTextField firstNameField;
     private JTextField lastNameFField;
     private JTextField lastNameMField;
-    private JTextArea addressArea;
+    private JTextField addressTextField;
     private JTextField numberPhoneField;
     private JButton addCustomerButton;
     private JPanel customersPanel;
@@ -47,7 +46,7 @@ public class MainWin extends JFrame {
     private JPanel pledgesPanel;
     private JTextField codField;
     private JTextField nameField;
-    private JTextArea descriptionArea;
+    private JTextField descriptionTextField;
     private JButton addPledgeButton;
     private JTable tablePlegdes;
     private JButton deletePledgeButton;
@@ -64,7 +63,7 @@ public class MainWin extends JFrame {
     //STORES
     private JPanel storesPanel;
     private JTextField nameStoreField;
-    private JTextArea descriptionStoreArea;
+    private JTextField descriptionStoreTextField;
     private JButton addStoreButton;
     private JTable tableStores;
     private JButton deleteStoreButton;
@@ -102,6 +101,9 @@ public class MainWin extends JFrame {
     private JRadioButton searchStoreNameRadioButton;
     private JRadioButton searchStoreStatusRadioButton;
     private JRadioButton searchStoreIdRadioButton;
+    private JScrollPane jscrollPaneClients;
+    private JScrollPane jscrollPanePrendas;
+    private JScrollPane jScrollPaneEmpeños;
 
     //CONTROLLERS
     private final CustomerController controllerCustomer;
@@ -278,7 +280,7 @@ public class MainWin extends JFrame {
         try {
             controllerCustomer.create(ciField.getText(), firstNameField.getText(),
                     lastNameFField.getText(), lastNameMField.getText(),
-                    addressArea.getText(), numberPhoneField.getText());
+                    addressTextField.getText(), numberPhoneField.getText());
             comboCustomers.removeAllItems();
             loadComboCustomers();
             populateTableCustomers();
@@ -393,7 +395,7 @@ public class MainWin extends JFrame {
         firstNameField.setText("");
         lastNameFField.setText("");
         lastNameMField.setText("");
-        addressArea.setText("");
+        addressTextField.setText("");
         numberPhoneField.setText("");
 
     }
@@ -402,7 +404,7 @@ public class MainWin extends JFrame {
     public void addPledge() {
         try {
             controllerPledge.create(codField.getText(), nameField.getText(),
-                    String.valueOf(comboTypePledge.getSelectedItem()), descriptionArea.getText(),
+                    String.valueOf(comboTypePledge.getSelectedItem()), descriptionTextField.getText(),
                     String.valueOf(comboLocation.getSelectedItem()));
             comboPledges.removeAllItems();
             loadComboPledges();
@@ -511,13 +513,13 @@ public class MainWin extends JFrame {
     public void clearPledgeFields() {
         codField.setText("");
         nameField.setText("");
-        descriptionArea.setText("");
+        descriptionTextField.setText("");
     }
 
 
     public void addStore() {
         try {
-            controllerStore.create(nameStoreField.getText(), descriptionStoreArea.getText(),
+            controllerStore.create(nameStoreField.getText(), descriptionStoreTextField.getText(),
                     String.valueOf(comboStatusStore.getSelectedItem()));
             comboLocation.removeAllItems();
             loadComboLocation();
@@ -620,7 +622,7 @@ public class MainWin extends JFrame {
 
     public void clearStoreFields() {
         nameStoreField.setText("");
-        descriptionStoreArea.setText("");
+        descriptionStoreTextField.setText("");
     }
 
     public void loadComboTypesPledges() {
@@ -882,9 +884,6 @@ public class MainWin extends JFrame {
         customersPanel.add(lastNameFField, new GridConstraints(2, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         lastNameMField = new JTextField();
         customersPanel.add(lastNameMField, new GridConstraints(3, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        addressArea = new JTextArea();
-        addressArea.setLineWrap(true);
-        customersPanel.add(addressArea, new GridConstraints(4, 1, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         numberPhoneField = new JTextField();
         customersPanel.add(numberPhoneField, new GridConstraints(5, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label6 = new JLabel();
@@ -895,8 +894,6 @@ public class MainWin extends JFrame {
         addCustomerButton = new JButton();
         addCustomerButton.setText("Agregar");
         customersPanel.add(addCustomerButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        tableCustomers = new JTable();
-        customersPanel.add(tableCustomers, new GridConstraints(6, 1, 3, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         searchCustomerButton = new JButton();
         searchCustomerButton.setText("Buscar");
         customersPanel.add(searchCustomerButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -921,6 +918,12 @@ public class MainWin extends JFrame {
         editCustomerButton = new JButton();
         editCustomerButton.setText("Editar");
         customersPanel.add(editCustomerButton, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        addressTextField = new JTextField();
+        customersPanel.add(addressTextField, new GridConstraints(4, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        jscrollPaneClients = new JScrollPane();
+        customersPanel.add(jscrollPaneClients, new GridConstraints(6, 1, 3, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        tableCustomers = new JTable();
+        jscrollPaneClients.setViewportView(tableCustomers);
         pledgesPanel = new JPanel();
         pledgesPanel.setLayout(new GridLayoutManager(10, 6, new Insets(0, 0, 0, 0), -1, -1));
         tabbedMain.addTab("Prendas", pledgesPanel);
@@ -936,24 +939,10 @@ public class MainWin extends JFrame {
         final JLabel label10 = new JLabel();
         label10.setText("Descripción:");
         pledgesPanel.add(label10, new GridConstraints(3, 0, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label11 = new JLabel();
-        label11.setText("Ubicación:");
-        pledgesPanel.add(label11, new GridConstraints(4, 0, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         codField = new JTextField();
         pledgesPanel.add(codField, new GridConstraints(0, 3, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         nameField = new JTextField();
         pledgesPanel.add(nameField, new GridConstraints(1, 3, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        descriptionArea = new JTextArea();
-        descriptionArea.setLineWrap(true);
-        pledgesPanel.add(descriptionArea, new GridConstraints(3, 3, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        addPledgeButton = new JButton();
-        addPledgeButton.setText("Agregar");
-        pledgesPanel.add(addPledgeButton, new GridConstraints(5, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        tablePlegdes = new JTable();
-        pledgesPanel.add(tablePlegdes, new GridConstraints(5, 3, 3, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        deletePledgeButton = new JButton();
-        deletePledgeButton.setText("Eliminar");
-        pledgesPanel.add(deletePledgeButton, new GridConstraints(6, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchPledgeButton = new JButton();
         searchPledgeButton.setText("Buscar");
         pledgesPanel.add(searchPledgeButton, new GridConstraints(8, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -965,20 +954,35 @@ public class MainWin extends JFrame {
         searchPledgeByNameRadioButton = new JRadioButton();
         searchPledgeByNameRadioButton.setSelected(true);
         searchPledgeByNameRadioButton.setText("Nombre");
-        pledgesPanel.add(searchPledgeByNameRadioButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pledgesPanel.add(searchPledgeByNameRadioButton, new GridConstraints(9, 0, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchPledgeTypeRadioButton = new JRadioButton();
         searchPledgeTypeRadioButton.setText("Tipo");
         pledgesPanel.add(searchPledgeTypeRadioButton, new GridConstraints(9, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        comboLocation = new JComboBox();
-        pledgesPanel.add(comboLocation, new GridConstraints(4, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         comboTypePledge = new JComboBox();
         pledgesPanel.add(comboTypePledge, new GridConstraints(2, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchPledgeLocationRadioButton = new JRadioButton();
         searchPledgeLocationRadioButton.setText("Ubicación");
         pledgesPanel.add(searchPledgeLocationRadioButton, new GridConstraints(9, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        descriptionTextField = new JTextField();
+        pledgesPanel.add(descriptionTextField, new GridConstraints(3, 3, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        jscrollPanePrendas = new JScrollPane();
+        pledgesPanel.add(jscrollPanePrendas, new GridConstraints(5, 3, 3, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        tablePlegdes = new JTable();
+        jscrollPanePrendas.setViewportView(tablePlegdes);
+        deletePledgeButton = new JButton();
+        deletePledgeButton.setText("Eliminar");
+        pledgesPanel.add(deletePledgeButton, new GridConstraints(6, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         editPledgeButton = new JButton();
         editPledgeButton.setText("Editar");
         pledgesPanel.add(editPledgeButton, new GridConstraints(7, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        addPledgeButton = new JButton();
+        addPledgeButton.setText("Agregar");
+        pledgesPanel.add(addPledgeButton, new GridConstraints(5, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label11 = new JLabel();
+        label11.setText("Ubicación:");
+        pledgesPanel.add(label11, new GridConstraints(4, 0, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        comboLocation = new JComboBox();
+        pledgesPanel.add(comboLocation, new GridConstraints(4, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         pawnsPanel = new JPanel();
         pawnsPanel.setLayout(new GridLayoutManager(12, 6, new Insets(0, 0, 0, 0), -1, -1));
         tabbedMain.addTab("Empeños", pawnsPanel);
@@ -1010,8 +1014,6 @@ public class MainWin extends JFrame {
         addPawnButton = new JButton();
         addPawnButton.setText("Agregar");
         pawnsPanel.add(addPawnButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        tablePawns = new JTable();
-        pawnsPanel.add(tablePawns, new GridConstraints(6, 1, 4, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         final JLabel label17 = new JLabel();
         label17.setText("Tipo: ");
         pawnsPanel.add(label17, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -1050,54 +1052,59 @@ public class MainWin extends JFrame {
         filePawnButton = new JButton();
         filePawnButton.setText("Archivar");
         pawnsPanel.add(filePawnButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        jScrollPaneEmpeños = new JScrollPane();
+        pawnsPanel.add(jScrollPaneEmpeños, new GridConstraints(6, 1, 4, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        tablePawns = new JTable();
+        jScrollPaneEmpeños.setViewportView(tablePawns);
         storesPanel = new JPanel();
-        storesPanel.setLayout(new GridLayoutManager(8, 12, new Insets(0, 0, 0, 0), -1, -1));
+        storesPanel.setLayout(new GridLayoutManager(8, 15, new Insets(0, 0, 0, 0), -1, -1));
         tabbedMain.addTab("Depósitos", storesPanel);
         final JLabel label18 = new JLabel();
         label18.setText("Nombre:");
-        storesPanel.add(label18, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        storesPanel.add(label18, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label19 = new JLabel();
         label19.setText("Descripción:");
-        storesPanel.add(label19, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        storesPanel.add(label19, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label20 = new JLabel();
         label20.setText("Estado:");
-        storesPanel.add(label20, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        storesPanel.add(label20, new GridConstraints(2, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         nameStoreField = new JTextField();
-        storesPanel.add(nameStoreField, new GridConstraints(0, 1, 1, 11, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        descriptionStoreArea = new JTextArea();
-        descriptionStoreArea.setLineWrap(true);
-        storesPanel.add(descriptionStoreArea, new GridConstraints(1, 1, 1, 11, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        addStoreButton = new JButton();
-        addStoreButton.setText("Agregar");
-        storesPanel.add(addStoreButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        tableStores = new JTable();
-        storesPanel.add(tableStores, new GridConstraints(3, 1, 3, 11, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        deleteStoreButton = new JButton();
-        deleteStoreButton.setText("Eliminar");
-        storesPanel.add(deleteStoreButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        storesPanel.add(nameStoreField, new GridConstraints(0, 2, 1, 13, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         comboStatusStore = new JComboBox();
-        storesPanel.add(comboStatusStore, new GridConstraints(2, 1, 1, 11, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        editStoreButton = new JButton();
-        editStoreButton.setText("Editar");
-        storesPanel.add(editStoreButton, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        storesPanel.add(comboStatusStore, new GridConstraints(2, 2, 1, 13, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchStoreButton = new JButton();
         searchStoreButton.setText("Buscar");
         storesPanel.add(searchStoreButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchStoreTextField = new JTextField();
-        storesPanel.add(searchStoreTextField, new GridConstraints(6, 1, 1, 11, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        searchStoreStatusRadioButton = new JRadioButton();
-        searchStoreStatusRadioButton.setText("Estado");
-        storesPanel.add(searchStoreStatusRadioButton, new GridConstraints(7, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        searchStoreDescriptionRadioButton = new JRadioButton();
-        searchStoreDescriptionRadioButton.setText("Descripción");
-        storesPanel.add(searchStoreDescriptionRadioButton, new GridConstraints(7, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        storesPanel.add(searchStoreTextField, new GridConstraints(6, 1, 1, 14, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        descriptionStoreTextField = new JTextField();
+        storesPanel.add(descriptionStoreTextField, new GridConstraints(1, 2, 1, 13, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        deleteStoreButton = new JButton();
+        deleteStoreButton.setText("Eliminar");
+        storesPanel.add(deleteStoreButton, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        addStoreButton = new JButton();
+        addStoreButton.setText("Agregar");
+        storesPanel.add(addStoreButton, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        storesPanel.add(scrollPane1, new GridConstraints(3, 2, 3, 13, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        tableStores = new JTable();
+        scrollPane1.setViewportView(tableStores);
+        editStoreButton = new JButton();
+        editStoreButton.setText("Editar");
+        storesPanel.add(editStoreButton, new GridConstraints(5, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchStoreIdRadioButton = new JRadioButton();
         searchStoreIdRadioButton.setText("Id");
-        storesPanel.add(searchStoreIdRadioButton, new GridConstraints(7, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        storesPanel.add(searchStoreIdRadioButton, new GridConstraints(7, 2, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         searchStoreNameRadioButton = new JRadioButton();
         searchStoreNameRadioButton.setSelected(true);
         searchStoreNameRadioButton.setText("Nombre");
-        storesPanel.add(searchStoreNameRadioButton, new GridConstraints(7, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        storesPanel.add(searchStoreNameRadioButton, new GridConstraints(7, 6, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        searchStoreDescriptionRadioButton = new JRadioButton();
+        searchStoreDescriptionRadioButton.setText("Descripción");
+        storesPanel.add(searchStoreDescriptionRadioButton, new GridConstraints(7, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        searchStoreStatusRadioButton = new JRadioButton();
+        searchStoreStatusRadioButton.setText("Estado");
+        storesPanel.add(searchStoreStatusRadioButton, new GridConstraints(7, 11, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         refreshAllButton = new JButton();
         refreshAllButton.setText("Actualizar");
         rootPanel.add(refreshAllButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
