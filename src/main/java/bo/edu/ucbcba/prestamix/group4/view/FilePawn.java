@@ -45,6 +45,7 @@ public class FilePawn extends JDialog {
     public FilePawn(JFrame edit, Pawn p) {
         super(edit, "-ARCHIVADOS-", true);
         setContentPane(rootPanel);
+        pack();
         setSize(800, 600);
         fileController = new FileController();
         save(p);
