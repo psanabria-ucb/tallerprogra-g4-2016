@@ -132,6 +132,7 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <icon value="icons/add.png"/>
                   <text value="Agregar"/>
                 </properties>
               </component>

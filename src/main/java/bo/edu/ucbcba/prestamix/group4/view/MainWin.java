@@ -897,8 +897,7 @@ public class MainWin extends JFrame {
             int id = (Integer) tm.getValueAt(tablePawns.getSelectedRow(), 0);
             Payments form = new Payments(this, controllerPawn.getPawn(id));
             form.setVisible(true);
-        }
-        else {
+        } else {
             try {
                 controllerPawn.getPawn(0);
 
@@ -1068,6 +1067,7 @@ public class MainWin extends JFrame {
         ciField = new JTextField();
         customersPanel.add(ciField, new GridConstraints(0, 1, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         addCustomerButton = new JButton();
+        addCustomerButton.setIcon(new ImageIcon(getClass().getResource("/icons/add.png")));
         addCustomerButton.setText("Agregar");
         customersPanel.add(addCustomerButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(138, 32), null, 0, false));
         searchCustomerButton = new JButton();
