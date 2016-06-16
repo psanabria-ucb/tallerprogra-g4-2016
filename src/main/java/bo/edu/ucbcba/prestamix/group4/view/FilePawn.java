@@ -282,12 +282,15 @@ public class FilePawn extends JDialog {
         fileTable.setShowHorizontalLines(false);
         scrollPane1.setViewportView(fileTable);
         SearchFileButton = new JButton();
+        SearchFileButton.setIcon(new ImageIcon(getClass().getResource("/icons/magnifier.png")));
         SearchFileButton.setText("Buscar");
         rootPanel.add(SearchFileButton, new GridConstraints(1, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         exportButton = new JButton();
+        exportButton.setIcon(new ImageIcon(getClass().getResource("/icons/spreadsheet-cell-row.png")));
         exportButton.setText("Exportar a Excel");
         rootPanel.add(exportButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         printButton = new JButton();
+        printButton.setIcon(new ImageIcon(getClass().getResource("/icons/printer.png")));
         printButton.setText("Imprimir");
         rootPanel.add(printButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         ButtonGroup buttonGroup;

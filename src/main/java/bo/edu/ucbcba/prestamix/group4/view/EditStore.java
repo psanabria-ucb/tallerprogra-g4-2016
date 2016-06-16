@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public class EditStore extends JDialog {
     private JPanel rootPanel;
     private JTextField nameField;
-    private JTextArea descriptionArea;
+    private JTextField descriptionTF;
     private JComboBox comboStatus;
     private JButton okButton;
     private JButton cancelButton;
@@ -44,7 +44,7 @@ public class EditStore extends JDialog {
 
     public void load(Store s) {
         nameField.setText(s.getName());
-        descriptionArea.setText(s.getDescription());
+        descriptionTF.setText(s.getDescription());
         comboStatus.addItem("Vacio");
         comboStatus.addItem("Optimo");
         comboStatus.addItem("Lleno");
@@ -57,7 +57,7 @@ public class EditStore extends JDialog {
 
     public void ok(Store s, StoreController sc) {
         try {
-            sc.update(s.getId(), nameField.getText(), descriptionArea.getText(),
+            sc.update(s.getId(), nameField.getText(), descriptionTF.getText(),
                     String.valueOf(comboStatus.getSelectedItem()));
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
@@ -94,16 +94,18 @@ public class EditStore extends JDialog {
         rootPanel.add(label3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         nameField = new JTextField();
         rootPanel.add(nameField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        descriptionArea = new JTextArea();
-        rootPanel.add(descriptionArea, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         comboStatus = new JComboBox();
         rootPanel.add(comboStatus, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         okButton = new JButton();
-        okButton.setText("OK");
+        okButton.setIcon(new ImageIcon(getClass().getResource("/icons/correct-symbol.png")));
+        okButton.setText("Confirmar");
         rootPanel.add(okButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cancelButton = new JButton();
-        cancelButton.setText("Cancel");
+        cancelButton.setIcon(new ImageIcon(getClass().getResource("/icons/remove-symbol.png")));
+        cancelButton.setText("Cancelar");
         rootPanel.add(cancelButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        descriptionTF = new JTextField();
+        rootPanel.add(descriptionTF, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
     }
 
     /**

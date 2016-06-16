@@ -132,7 +132,8 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <icon value="icons/add.png"/>
+                  <horizontalTextPosition value="11"/>
+                  <icon value="icons/addition-sign.png"/>
                   <text value="Agregar"/>
                 </properties>
               </component>
@@ -143,6 +144,7 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <icon value="icons/magnifier.png"/>
                   <text value="Buscar"/>
                 </properties>
               </component>
@@ -196,6 +198,7 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <icon value="icons/minus-sign.png"/>
                   <text value="Eliminar"/>
                 </properties>
               </component>
@@ -206,6 +209,7 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <icon value="icons/quill-drawing-a-line.png"/>
                   <text value="Editar"/>
                 </properties>
               </component>
@@ -235,6 +239,7 @@
                   <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/spreadsheet-cell-row.png"/>
                   <text value="Exportar a Excel"/>
                 </properties>
               </component>
@@ -243,6 +248,7 @@
                   <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/printer.png"/>
                   <text value="Imprimir"/>
                 </properties>
               </component>
@@ -309,6 +315,7 @@
                   <grid row="10" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/magnifier.png"/>
                   <text value="Buscar"/>
                 </properties>
               </component>
@@ -376,6 +383,7 @@
                   <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/minus-sign.png"/>
                   <text value="Eliminar"/>
                 </properties>
               </component>
@@ -384,6 +392,7 @@
                   <grid row="7" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/quill-drawing-a-line.png"/>
                   <text value="Editar"/>
                 </properties>
               </component>
@@ -392,6 +401,7 @@
                   <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/addition-sign.png"/>
                   <text value="Agregar"/>
                 </properties>
               </component>
@@ -423,6 +433,7 @@
                   <grid row="8" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/spreadsheet-cell-row.png"/>
                   <text value="Exportar a Excel"/>
                 </properties>
               </component>
@@ -431,6 +442,7 @@
                   <grid row="9" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/printer.png"/>
                   <text value="Imprimir"/>
                 </properties>
               </component>
@@ -523,6 +535,7 @@
                   <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/addition-sign.png"/>
                   <text value="Agregar"/>
                 </properties>
               </component>
@@ -545,6 +558,7 @@
                   <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/minus-sign.png"/>
                   <text value="Eliminar"/>
                 </properties>
               </component>
@@ -553,6 +567,7 @@
                   <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/magnifier.png"/>
                   <text value="Buscar"/>
                 </properties>
               </component>
@@ -618,6 +633,7 @@
                   <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/quill-drawing-a-line.png"/>
                   <text value="Editar"/>
                 </properties>
               </component>
@@ -626,6 +642,7 @@
                   <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/binders.png"/>
                   <text value="Archivar"/>
                 </properties>
               </component>
@@ -647,6 +664,7 @@
                   <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/spreadsheet-cell-row.png"/>
                   <text value="Exportar a Excel"/>
                 </properties>
               </component>
@@ -655,6 +673,7 @@
                   <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/printer.png"/>
                   <text value="Imprimir"/>
                 </properties>
               </component>
@@ -663,6 +682,7 @@
                   <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/money-timer.png"/>
                   <text value="Pagos"/>
                 </properties>
               </component>
@@ -719,6 +739,7 @@
                   <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/magnifier.png"/>
                   <text value="Buscar"/>
                 </properties>
               </component>
@@ -743,6 +764,7 @@
                   <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/minus-sign.png"/>
                   <text value="Eliminar"/>
                 </properties>
               </component>
@@ -751,6 +773,7 @@
                   <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/addition-sign.png"/>
                   <text value="Agregar"/>
                 </properties>
               </component>
@@ -772,6 +795,7 @@
                   <grid row="5" column="0" row-span="2" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/quill-drawing-a-line.png"/>
                   <text value="Editar"/>
                 </properties>
               </component>
@@ -813,6 +837,7 @@
                   <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/spreadsheet-cell-row.png"/>
                   <text value="Exportar a Excel"/>
                 </properties>
               </component>
@@ -821,6 +846,7 @@
                   <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <icon value="icons/printer.png"/>
                   <text value="Imprimir"/>
                 </properties>
               </component>
@@ -841,6 +867,7 @@
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <icon value="icons/books.png"/>
           <text value="Ver Archivados"/>
         </properties>
       </component>

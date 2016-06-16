@@ -128,10 +128,12 @@ public class EditPawn extends JDialog {
         statusCombo = new JComboBox();
         rootPanel.add(statusCombo, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         okButton = new JButton();
-        okButton.setText("OK");
+        okButton.setIcon(new ImageIcon(getClass().getResource("/icons/correct-symbol.png")));
+        okButton.setText("Confirmar");
         rootPanel.add(okButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cancelButton = new JButton();
-        cancelButton.setText("Cancel");
+        cancelButton.setIcon(new ImageIcon(getClass().getResource("/icons/remove-symbol.png")));
+        cancelButton.setText("Cancelar");
         rootPanel.add(cancelButton, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 

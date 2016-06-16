@@ -19,7 +19,7 @@ public class EditPledge extends JDialog {
 
     private JTextField codField;
     private JTextField nameField;
-    private JTextArea descriptionArea;
+    private JTextField descriptionTF;
     private JComboBox comboLocation;
     private JPanel rootPanel;
     private JComboBox comboType;
@@ -53,7 +53,7 @@ public class EditPledge extends JDialog {
         codField.setText(p.getCod());
         codField.setEditable(false);
         nameField.setText(p.getName());
-        descriptionArea.setText(p.getDescription());
+        descriptionTF.setText(p.getDescription());
 
         comboType.addItem("Artículo Digital");
         comboType.addItem("Consola");
@@ -75,7 +75,7 @@ public class EditPledge extends JDialog {
     public void ok(PledgeController pc) {
         try {
             pc.update(codField.getText(), nameField.getText(), String.valueOf(comboType.getSelectedItem()),
-                    descriptionArea.getText(), String.valueOf(comboLocation.getSelectedItem()));
+                    descriptionTF.getText(), String.valueOf(comboLocation.getSelectedItem()));
         } catch (ValidationException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de Formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -117,8 +117,6 @@ public class EditPledge extends JDialog {
         rootPanel.add(codField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         nameField = new JTextField();
         rootPanel.add(nameField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        descriptionArea = new JTextArea();
-        rootPanel.add(descriptionArea, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         comboLocation = new JComboBox();
         rootPanel.add(comboLocation, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label5 = new JLabel();
@@ -126,10 +124,14 @@ public class EditPledge extends JDialog {
         rootPanel.add(label5, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         comboType = new JComboBox();
         rootPanel.add(comboType, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        descriptionTF = new JTextField();
+        rootPanel.add(descriptionTF, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         okButton = new JButton();
+        okButton.setIcon(new ImageIcon(getClass().getResource("/icons/correct-symbol.png")));
         okButton.setText("Confirmar");
         rootPanel.add(okButton, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         cancelButton = new JButton();
+        cancelButton.setIcon(new ImageIcon(getClass().getResource("/icons/remove-symbol.png")));
         cancelButton.setText("Cancelar");
         rootPanel.add(cancelButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
