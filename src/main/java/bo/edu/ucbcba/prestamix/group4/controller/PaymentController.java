@@ -73,4 +73,20 @@ public class PaymentController
         entityManager.close();
         return response;
     }
+
+    public void delete(int id)
+    {
+        if(id!=0)
+        {
+            EntityManager entityManager = PrestamixEntityManager.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.find(Payment.class, id));
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        }
+        else
+        {
+            throw new ValidationException("Error");
+        }
+    }
 }

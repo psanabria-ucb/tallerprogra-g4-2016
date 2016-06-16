@@ -11,9 +11,14 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.List;
 
 public class Payments extends JDialog {
@@ -31,6 +36,9 @@ public class Payments extends JDialog {
     private JPanel rootPane;
     private JTextField payField;
     private JTable tablePays = new JTable(null, header);
+    private JButton deleteButton;
+    private JButton printButton;
+    private JButton exportButton;
     final private PaymentController paymentController;
 
     public Payments(JFrame pays, Pawn p) {
@@ -44,6 +52,27 @@ public class Payments extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 save(p);
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deletePay();
+            }
+        });
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                excel(tablePays);
+            }
+        });
+
+        printButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                utilJTablePrint(tablePays, customerField.getText(),
+                        "FIN DE PLANILLA", true);
             }
         });
 
@@ -63,6 +92,8 @@ public class Payments extends JDialog {
         dateField.setEditable(false);
         statusField.setText(p.getStatus());
         statusField.setEditable(false);
+
+        interestField.setText("10");
     }
 
     public void save(Pawn p) {
@@ -91,6 +122,100 @@ public class Payments extends JDialog {
         }
     }
 
+    public void deletePay() {
+        DefaultTableModel tm = (DefaultTableModel) tablePays.getModel();
+        if (tablePays.getSelectedRowCount() > 0) {
+            int id = (Integer) tm.getValueAt(tablePays.getSelectedRow(), 0);
+            paymentController.delete(id);
+            populateTable();
+        } else {
+            try {
+                paymentController.delete(0);
+            } catch (ValidationException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error de selección", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void excel(JTable table) {
+        {
+            JFileChooser fc = new JFileChooser();
+            int option = fc.showSaveDialog(table);
+            if (option == JFileChooser.APPROVE_OPTION) {
+                String filename = fc.getSelectedFile().getName();
+                String path = fc.getSelectedFile().getParentFile().getPath();
+                int len = filename.length();
+                String ext = "";
+                String file = "";
+                if (len > 4) {
+                    ext = filename.substring(len - 4, len);
+                }
+                if (ext.equals(".xls")) {
+                    file = path + "\\" + filename;
+                } else {
+                    file = path + "\\" + filename + ".xls";
+                }
+                try {
+                    toExcel(table, new java.io.File(file));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    //Logger.getLogger(.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    public void toExcel(JTable tabla, java.io.File ficheroXLS) throws IOException {
+        TableModel modelo = tabla.getModel();
+        FileWriter fichero = new FileWriter(ficheroXLS);
+
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            fichero.write(modelo.getColumnName(i) + "\t");
+        }
+        fichero.write("\n");
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            for (int j = 0; j < modelo.getColumnCount(); j++) {
+                fichero.write(modelo.getValueAt(i, j).toString() + "\t");
+            }
+            fichero.write("\n");
+        }
+        fichero.close();
+    }
+
+    public void utilJTablePrint(JTable jTable, String header, String footer, boolean showPrintDialog) {
+        boolean fitWidth = true;
+        boolean interactive = true;
+        // We define the print mode (Definimos el modo de impresión)
+        JTable.PrintMode mode = fitWidth ? JTable.PrintMode.FIT_WIDTH : JTable.PrintMode.NORMAL;
+        try {
+            // Print the table (Imprimo la <span id="IL_AD1" class="IL_AD">tabla</span>)
+            boolean complete = jTable.print(mode,
+                    new MessageFormat(header),
+                    new MessageFormat(footer),
+                    showPrintDialog,
+                    null,
+                    interactive);
+            if (complete) {
+                // Mostramos el mensaje de impresión existosa
+                JOptionPane.showMessageDialog(jTable,
+                        "Print complete (Impresión completa)",
+                        "Print result (Resultado de la impresión)",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Mostramos un mensaje indicando que la impresión fue cancelada
+                JOptionPane.showMessageDialog(jTable,
+                        "Print canceled (Impresión cancelada)",
+                        "Print result (Resultado de la impresión)",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (PrinterException pe) {
+            JOptionPane.showMessageDialog(jTable,
+                    "Print fail (Fallo de impresión): " + pe.getMessage(),
+                    "Print result (Resultado de la impresión)",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     {
 // GUI initializer generated by IntelliJ IDEA GUI Designer
@@ -108,7 +233,7 @@ public class Payments extends JDialog {
      */
     private void $$$setupUI$$$() {
         rootPane = new JPanel();
-        rootPane.setLayout(new GridLayoutManager(9, 3, new Insets(0, 0, 0, 0), -1, -1));
+        rootPane.setLayout(new GridLayoutManager(12, 3, new Insets(0, 0, 0, 0), -1, -1));
         final JLabel label1 = new JLabel();
         label1.setText("Cliente: ");
         rootPane.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -156,9 +281,21 @@ public class Payments extends JDialog {
         addButton.setText("Agregar");
         rootPane.add(addButton, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
-        rootPane.add(scrollPane1, new GridConstraints(8, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        rootPane.add(scrollPane1, new GridConstraints(8, 1, 4, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         tablePays = new JTable();
         scrollPane1.setViewportView(tablePays);
+        deleteButton = new JButton();
+        deleteButton.setIcon(new ImageIcon(getClass().getResource("/icons/minus-sign.png")));
+        deleteButton.setText("Eliminar");
+        rootPane.add(deleteButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        printButton = new JButton();
+        printButton.setIcon(new ImageIcon(getClass().getResource("/icons/printer.png")));
+        printButton.setText("Imprimir ");
+        rootPane.add(printButton, new GridConstraints(11, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        exportButton = new JButton();
+        exportButton.setIcon(new ImageIcon(getClass().getResource("/icons/spreadsheet-cell-row.png")));
+        exportButton.setText("Exportar a Excel");
+        rootPane.add(exportButton, new GridConstraints(10, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
