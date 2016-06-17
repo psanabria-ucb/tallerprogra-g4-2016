@@ -262,6 +262,7 @@ public class MainWin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 filePawn();
+                refreshAll();
             }
         });
 
@@ -1338,6 +1339,7 @@ public class MainWin extends JFrame {
         storesPanel.add(printStoresButton, new GridConstraints(8, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         refreshAllButton = new JButton();
         refreshAllButton.setText("Actualizar");
+        refreshAllButton.setVisible(false);
         rootPanel.add(refreshAllButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         viewFilesButton = new JButton();
         viewFilesButton.setIcon(new ImageIcon(getClass().getResource("/icons/books.png")));
