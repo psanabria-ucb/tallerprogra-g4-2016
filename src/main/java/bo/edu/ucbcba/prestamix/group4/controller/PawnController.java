@@ -29,7 +29,7 @@ public class PawnController
             pawn.setDate(convert);
         }
         else {
-            throw new ValidationException("La fecha debe estar escrita en el formato Mes/Día/Año, corrija el dato para continuar");
+            throw new ValidationException("La fecha ingresada no existe, corrija el dato para continuar (recuerda que el formato es  mes/dia/año )");
         }
 
         pawn.setNameCustomer(nameCustomer);
@@ -200,7 +200,7 @@ public class PawnController
             pawn.setDate(convert);
         }
         else {
-            throw new ValidationException("La fecha debe estar escrita en el formato Mes/Día/Año, corrija el dato para continuar");
+            throw new ValidationException("La fecha ingresada no existe, corrija el dato para continuar (recuerda que el formato es  mes/dia/año )");
         }
 
         if (amount.matches("[0-9]+"))
