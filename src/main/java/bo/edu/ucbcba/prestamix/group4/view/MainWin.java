@@ -958,10 +958,12 @@ public class MainWin extends JFrame {
                     toExcel(table, new File(file));
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Ha ocurrido un error al exportar", JOptionPane.ERROR_MESSAGE);
                     //Logger.getLogger(.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+        JOptionPane.showMessageDialog(this, "La tabla fue exportada con éxito");
     }
 
     public void toExcel(JTable tabla, File ficheroXLS) throws IOException {

@@ -178,10 +178,12 @@ public class FilePawn extends JDialog {
                     toExcel(table, new java.io.File(file));
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Ha ocurrido un error al exportar", JOptionPane.ERROR_MESSAGE);
                     //Logger.getLogger(.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+        JOptionPane.showMessageDialog(this, "La tabla fue exportada con éxito");
     }
 
     public void toExcel(JTable tabla, java.io.File ficheroXLS) throws IOException {
